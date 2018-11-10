@@ -66,4 +66,18 @@ class Balance extends Account {
         $this->balance_id = $balance_id;
     }
 
+    //toString method to perform these functions
+    public function toString() {
+        printf("Bitcoin to US Dollar: %0.2f", $this->getCoinToDollar());
+        echo "<br/>";
+        
+        printf("Bitcoin to Euro: %0.2f", $this->getCoinToEuro());
+        echo "<br/>";
+
+        printf("Bitcoin to Japanese Yen: %0.2f", $this->getCoinToYen());
+        echo "<br/>";
+
+        printf("Bitcoin to Russian Ruble: %0.2f", $this->getCoinToRuble());
+    }
+
 }
