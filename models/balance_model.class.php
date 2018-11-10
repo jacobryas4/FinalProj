@@ -41,7 +41,7 @@ class BalanceModel {
     }
 
     //list_balance method allows an admin to see how much money everyone's acount has
-        public function list_balance() {
+    public function list_balance() {
 
         $sql = "SELECT * FROM " . $this->tblBalance;
 
@@ -121,4 +121,10 @@ class BalanceModel {
         //execute the query
         return $this->dbConnection->query($sql);
     }
+
+    /*
+     * create php and sql statements that allows a user to add and subtract from an account
+     * allow the transaction table to preserve the number input for withdraw or deposit
+     * the methods should be implemented that handle adding or subtracting new data, but also updating the account balance accordingly
+     */
 }
