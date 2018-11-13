@@ -12,7 +12,7 @@ class AccountIndex extends AccountIndexView{
         parent::displayHeader();
 
         ?>
-        <style>
+<!--        <style>
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -28,14 +28,13 @@ class AccountIndex extends AccountIndexView{
         tr:nth-child(even) {
             background-color: #dddddd;
         }
-        </style>
+        </style>-->
         
         <table id="details">
             <tr>
                 <th>Account ID</th>
                 <th>Email</th>
                 <th>Username</th>
-                <th>Password</th>
             </tr>
             
             <?php
@@ -46,7 +45,6 @@ class AccountIndex extends AccountIndexView{
                 $account_id = $account->getId();
                 $email = $account->getEmail();
                 $username = $account->getUsername();
-                $password = $account->getPassword();
                 
                 echo "<td>" + $account_id + "</td>";
                 echo "<td>" + $email + "</td>";
