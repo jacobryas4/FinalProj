@@ -41,18 +41,27 @@ class AccountIndex extends AccountIndexView{
             <?php
             
             foreach($accounts as $i => $account) {
+                echo "<tr>";
+                
                 $account_id = $account->getId();
                 $email = $account->getEmail();
                 $username = $account->getUsername();
                 $password = $account->getPassword();
+                
+                echo "<td>" + $account_id + "</td>";
+                echo "<td>" + $email + "</td>";
+                echo "<td>" + $username + "</td>";
+                
+                echo "</tr>"; 
             }
         
-            
+        ?>
         </table>
         
 
 
 
         <?php
+        parent::displayFooter();
     }
 }
