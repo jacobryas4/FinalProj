@@ -7,29 +7,12 @@
  * Description: 
  */
 
-class AccountIndex extends AccountIndexView{
+class AccountIndex extends AccountIndexView {
     public function display($accounts){
-        parent::displayHeader();
-
-        ?>
-<!--        <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-        </style>-->
+        parent::displayHeader("List All Accounts");
         
+        ?>
+       
         <table id="details">
             <tr>
                 <th>Account ID</th>
@@ -38,17 +21,17 @@ class AccountIndex extends AccountIndexView{
             </tr>
             
             <?php
-            
-            foreach($accounts as $i => $account) {
+                    
+            foreach($accounts as $account) {
                 echo "<tr>";
                 
-                $account_id = $account->getId();
+                $account_id = $account->getAccount_Id();
                 $email = $account->getEmail();
                 $username = $account->getUsername();
                 
-                echo "<td>" + $account_id + "</td>";
-                echo "<td>" + $email + "</td>";
-                echo "<td>" + $username + "</td>";
+                echo "<td>" . $account_id . "</td>";
+                echo "<td>" . $email . "</td>";
+                echo "<td>" . $username . "</td>";
                 
                 echo "</tr>"; 
             }

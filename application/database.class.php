@@ -13,10 +13,10 @@ class Database {
     //define database parameters
     private $param = array(
         'host' => 'localhost',
-        'login' => 'root',
-        'password' => '',
+        'login' => 'phpuser',
+        'password' => 'phpuser',
         'database' => 'first_db',
-        'tblaccount' => 'accounts',
+        'tblAccounts' => 'account',
         'tblBalance' => 'balance',
     );
  
@@ -49,7 +49,7 @@ class Database {
     }
     
     //returns the name of the table that stores accounts
-    public function getBookTable() {
+    public function getAccountTable() {
         return $this->param['tblAccounts'];
     }
 
