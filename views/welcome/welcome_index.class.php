@@ -19,7 +19,7 @@ class WelcomeIndex extends IndexView {
         ?>    
         <div id="main-header">Welcome to The Time Bank!</div>
 
-        <a href="<?= BASE_URL ?>/account/index">See Accounts</a>
+        <a href="<?= BASE_URL ?>/index.php/account/index">See Accounts</a>
         <?php
         //display page footer
         parent::displayFooter();

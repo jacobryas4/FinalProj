@@ -20,7 +20,7 @@ class AccountController {
     // index action that displays all accounts
     public function index() {
         //retrieve all accounts and store them in an array
-        $accounts = $this->movie_model->list_account();
+        $accounts = $this->account_model->list_account();
 
         if (!$accounts) {
             //display an error
@@ -28,8 +28,8 @@ class AccountController {
             $this->error($message);
             return;
         }
-
-        // display all movies
+        
+        // display all
         $view = new AccountIndex();
         $view->display($accounts);
     }
@@ -44,7 +44,7 @@ class AccountController {
         
     }
     
-    // search movies
+    // search 
     public function search() {
         
         // retrieve query terms from search form 
