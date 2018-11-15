@@ -45,34 +45,35 @@ class AccountModel {
     //monetary possessions are not included in the account table
 
     public function list_account() {
-
+        
         $sql = "SELECT * FROM " . $this->tblAccount;
-
+       
         //execute the query
         $query = $this->dbConnection->query($sql);
 
         // if the query failed, return false. 
-        if (!$query)
+        if (!$query) {
             return false;
-
+        }
         //if the query succeeded, but no accounts were found.
-        if ($query->num_rows == 0)
+        if ($query->num_rows == 0) {
             return 0;
-
+        }
         //search succeeded, and found at least 1 account
         //create an array to store all the returned accounts
         $accounts = array();
-
+        
         //loop through all rows in the returned recordsets
         while ($obj = $query->fetch_object()) {
             $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
 
             //set the id for the account
-            $account->setId($obj->id);
+            $account->setAccount_id($obj->account_id);
 
             //add the account into the array
             $accounts[] = $account;
         }
+        
         return $accounts;
     }
 

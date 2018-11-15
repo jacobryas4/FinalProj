@@ -16,7 +16,7 @@ class Database {
         'login' => 'root',
         'password' => '',
         'database' => 'first_db',
-        'tblaccount' => 'accounts',
+        'tblAccounts' => 'account',
         'tblBalance' => 'balance',
     );
  
@@ -49,7 +49,7 @@ class Database {
     }
     
     //returns the name of the table that stores accounts
-    public function getBookTable() {
+    public function getAccountTable() {
         return $this->param['tblAccounts'];
     }
 

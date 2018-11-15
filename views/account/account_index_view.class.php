@@ -9,8 +9,8 @@
 
 class AccountIndexView extends IndexView{
     
-    public static function displayHeader(){
-        parent::displayHeader();
+    public static function displayHeader($title){
+        parent::displayHeader($title);
     }
     
     public static function displayFooter(){
