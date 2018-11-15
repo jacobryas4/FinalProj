@@ -16,14 +16,38 @@ class IndexView {
             <head>
                 <meta charset="UTF-8">
                 <title>Time Bank</title>
-                <link type='text/css' rel='stylesheet' href='<?= BASE_URL ?>/www/css/app_style.css' />
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                <link type='text/css' rel='stylesheet' href='<?= BASE_URL ?>/www/css/app-style.css' />
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                
                 <script>
                     //create the JavaScript variable for the base url
                     var base_url = "<?= BASE_URL ?>";
                 </script>
             </head>
-            <body>
-                <h1>Time Bank</h1>
+            <body class="bg-secondary">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="<?= BASE_URL ?>/index.php">Time Bank</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="<?= BASE_URL ?>/index.php">Home <span class="sr-only">(current)</span></a>
+                        </li>
+<!--                        <li class="nav-item">
+                          <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>-->
+                      </ul>
+                    </div>
+                </nav>
         <?php
     }
     //create the page footer

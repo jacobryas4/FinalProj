@@ -17,9 +17,14 @@ class WelcomeIndex extends IndexView {
         //display page header
         parent::displayHeader("Time Bank Home")
         ?>    
-        <div id="main-header">Welcome to The Time Bank!</div>
+        <div id="main-header">
+            
+            <h4>Welcome to The Time Bank!</h4>
+             <a href="<?= BASE_URL ?>/account/index">See Accounts</a>
+            
+        </div>
 
-        <a href="<?= BASE_URL ?>/index.php/account/index">See Accounts</a>
+       
         <?php
         //display page footer
         parent::displayFooter();

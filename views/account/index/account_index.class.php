@@ -12,13 +12,17 @@ class AccountIndex extends AccountIndexView {
         parent::displayHeader("List All Accounts");
         
         ?>
-       
-        <table id="details">
-            <tr>
-                <th>Account ID</th>
-                <th>Email</th>
-                <th>Username</th>
-            </tr>
+            
+            <table class="table table-striped bg-light">
+                <thead>
+                  <tr>
+                    <th scope="col">Account ID</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Username</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
             
             <?php
                     
@@ -37,6 +41,7 @@ class AccountIndex extends AccountIndexView {
             }
         
         ?>
+        </tbody>
         </table>
         
 
