@@ -18,3 +18,22 @@ h1 {
     background-color: white;
    
 }
+
+table {
+    width: 100% !important;
+    border-radius: 2px;
+}
+
+.footer {
+    width: 100%;
+    background-color: black;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    display: flex;
+}
+
+.footer-center {
+    margin: auto;
+}
