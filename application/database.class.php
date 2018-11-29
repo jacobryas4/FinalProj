@@ -17,7 +17,7 @@ class Database {
         'password' => '',
         'database' => 'first_db',
         'tblAccounts' => 'account',
-        'tblBalance' => 'balance',
+        'tblTransaction' => 'transaction',
     );
  
     //define the database connection object
@@ -52,10 +52,14 @@ class Database {
     public function getAccountTable() {
         return $this->param['tblAccounts'];
     }
+    //returns the name of the table that stores accounts
+    public function getUserTable() {
+        return $this->param['tblAccounts'];
+    }
 
-    //returns the name of the table that stores user balances
-    public function getBalanceTable() {
-        return $this->param['tblBalance'];
+    //returns the name of the table that stores user transactions
+    public function getTransactionTable() {
+        return $this->param['tblTransactions'];
     }
 
 }

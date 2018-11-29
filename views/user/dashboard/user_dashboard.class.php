@@ -6,12 +6,11 @@
  * Description: Define a class that displays account balance and transaction information
  */
 
-class UserDashboardView extends UserIndexView {
+class UserDashboardView {
 
     //create the method that will be called to display this page
     public function display($transactions, $account) {
-        //display the header
-        parent::displayHeader();
+
         ?>
         <!--Create a div and display the balance for the account-->
         <div id="balance">
@@ -54,12 +53,12 @@ class UserDashboardView extends UserIndexView {
             </tbody>
         </table>
 
-
-
+        <div class="bottom-row">
+            <span style="float: left">Want to logout? <a href="<?= BASE_URL ?>/user/logout">Logout</a></span>
+        </div>
 
         <?php
-        //display the footer
-        parent::displayFooter();
+
     }
 
 }
