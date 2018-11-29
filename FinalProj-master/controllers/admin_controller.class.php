@@ -73,4 +73,46 @@ class AdminController {
         $view->display($message);
     }
     
+    // present a form to add an account to the database
+    public function add() {
+        
+        //retrieve all accounts and store them in an array
+        $accounts = $this->admin_model->list_account();
+        
+        if (!$accounts) {
+            //display an error
+            $message = "There was a problem displaying the accounts.";
+            $this->error($message);
+            return;
+        }
+        
+        // display all
+        $view = new AdminAdd();
+        $view->display();
+        
+        
+    }
+    
+    // actually add the account to the database
+    public function addAccount() {
+        
+        // add the new account to the database
+        $addAccount = $this->admin_model->add_account();
+        
+        // handle updates
+        if(!$addAccount) {
+            $message = "There was a problem adding the account";
+            $this->error($message);
+            return;
+        }
+        
+        //retrieve all accounts and store them in an array
+        $accounts = $this->admin_model->list_account();
+        
+        // display all
+        $view = new AdminIndex();
+        $view->display($accounts);
+        
+    }
+    
 }

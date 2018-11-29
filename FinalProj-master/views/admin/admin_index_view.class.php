@@ -17,17 +17,17 @@ class AdminIndexView extends IndexView {
         parent::displayHeader($title);
         ?>
         <div class="jumbotron text-center"><h3>Administrator Dashboard</h3></div>
-        <div class="row">
+<!--        <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
                 <form class="form-control my-2" action="<?= BASE_URL ?>/admin/search">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="query-terms" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search by username" name="query-terms" aria-label="Search">
                     <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
             <div class="col-4"></div>
 
-        </div>
+        </div>-->
         <?php
     }
     

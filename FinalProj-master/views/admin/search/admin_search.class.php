@@ -17,9 +17,13 @@ class AdminSearch extends AdminIndexView {
         // display header
         parent::displayHeader("Search results");
         ?>
-        <div id="main-header">
-            Search Results for <?= $terms ?>
+<div class="container">
+    
+    <div class="row">
+        <div class="col text-center">
+            <h3>Search Results for '<?= $terms ?>'</h3>
         </div>
+    </div>
 
         <!-- end of header -->
         
@@ -63,6 +67,7 @@ class AdminSearch extends AdminIndexView {
             </div>   
             <div class="col-2"></div>
         </div>
+</div>
         <a href="<?= BASE_URL ?>/admin/index">Back to dashboard</a>
         <?php
         // display footer
