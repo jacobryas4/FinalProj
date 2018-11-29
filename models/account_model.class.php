@@ -45,9 +45,9 @@ class AccountModel {
     //monetary possessions are not included in the account table
 
     public function list_account() {
-
+        
         $sql = "SELECT * FROM " . $this->tblAccount;
-
+       
         //execute the query
         $query = $this->dbConnection->query($sql);
 
@@ -68,11 +68,12 @@ class AccountModel {
             $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
 
             //set the id for the account
-            $account->setId($obj->id);
+            $account->setAccount_id($obj->account_id);
 
             //add the account into the array
             $accounts[] = $account;
         }
+        
         return $accounts;
     }
 

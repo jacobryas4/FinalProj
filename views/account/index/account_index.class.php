@@ -12,31 +12,35 @@ class AccountIndex extends AccountIndexView {
         parent::displayHeader("List All Accounts");
         
         ?>
-       
-        <table id="details">
-            <tr>
-                <th>Account ID</th>
-                <th>Email</th>
-                <th>Username</th>
-            </tr>
+            <table class="table table-striped bg-light">
+                <thead>
+                  <tr>
+                    <th scope="col">Account ID</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Username</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
             
             <?php
-            
-            foreach($accounts as $i => $account) {
+                    
+            foreach($accounts as $account) {
                 echo "<tr>";
                 
-                $account_id = $account->getId();
+                $account_id = $account->getAccount_Id();
                 $email = $account->getEmail();
                 $username = $account->getUsername();
                 
-                echo "<td>" + $account_id + "</td>";
-                echo "<td>" + $email + "</td>";
-                echo "<td>" + $username + "</td>";
+                echo "<td>" . $account_id . "</td>";
+                echo "<td>" . $email . "</td>";
+                echo "<td>" . $username . "</td>";
                 
                 echo "</tr>"; 
             }
         
         ?>
+        </tbody>
         </table>
         
 

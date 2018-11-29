@@ -17,9 +17,28 @@ class WelcomeIndex extends IndexView {
         //display page header
         parent::displayHeader("Time Bank Home")
         ?>    
-        <div id="main-header">Welcome to The Time Bank!</div>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col">
+                        <h4>Welcome to The Time Bank!</h4>
+                        <a href="<?= BASE_URL ?>/admin/index">Admin Dashboard</a>
+                    </div>
+                    <div class="col text-center">
+                        <img class="homePageJumbotronImage" src="<?= BASE_URL ?>/www/img/undrawSavings.png">
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+            
+            
+            
+        </div>
 
-        <a href="<?= BASE_URL ?>/index.php/account/index">See Accounts</a>
+       
         <?php
         //display page footer
         parent::displayFooter();

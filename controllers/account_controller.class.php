@@ -19,9 +19,10 @@ class AccountController {
     
     // index action that displays all accounts
     public function index() {
+        
         //retrieve all accounts and store them in an array
         $accounts = $this->account_model->list_account();
-
+        
         if (!$accounts) {
             //display an error
             $message = "There was a problem displaying the accounts.";

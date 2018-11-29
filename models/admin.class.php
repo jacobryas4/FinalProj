@@ -1,28 +1,30 @@
 <?php
 
 /*
- * Ryan Byrd
- * 11/9/2018
- * account.class.php
- * A class labeling the user account and its attributes
+ * This class is for the Admin account of the site.
+ * In its current state, it is basically a copy of 
+ * the 'Account' class.  New methods will have to be added to 
+ * specifiy actions inherent to the admin role. 
+ * 11/20/18
  */
 
-class Account {
-
+/**
+ * Description of admin
+ *
+ * @author jacobbryant
+ */
+class Admin {
     //private attributes
     private $account_id;
     private $email;
     private $username;
     private $password;
-    private $balance;
 
-    public function __construct($account_id, $email, $username, $balance, $password) {
+    public function __construct($account_id, $email, $username, $password) {
         $this->account_id = $account_id;
         $this->email = $email;
         $this->username = $username;
-        $this->balance = $balance;
         $this->password = $password;
-        
     }
 
     //getter methods for retrieving attributes
@@ -41,14 +43,9 @@ class Account {
     public function getPassword() {
         return $this->password;
     }
-    
-    public function getBalance() {
-        return $this->balance;
-    }
 
     //setter for the id
     public function setAccount_id($account_id) {
         $this->account_id = $account_id;
     }
-
 }
