@@ -1,0 +1,53 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 14, 2018, 2:12:47 PM
+    Author     : jacobbryant
+*/
+
+
+
+body {
+    width: 100%;
+    padding-bottom: 80px;
+}
+
+h1 {
+    font-size: 88px;
+}
+
+#main-header {
+    /*padding: 30px;*/
+    background-color: white;
+   
+}
+
+.homePageJumbotronImage {
+    width: 60%;
+    border-radius: 10px;
+}
+
+table {
+    width: 100% !important;
+    border-radius: 2px;
+}
+
+.footer {
+    width: 100%;
+    background-color: black;
+    color: white;
+    position: fixed;
+    height: 60px;
+    display: flex;
+    margin-top: 20px;
+    bottom: 0;
+}
+
+
+
+.footer-center {
+    margin: auto;
+}
