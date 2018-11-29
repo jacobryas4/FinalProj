@@ -12,8 +12,27 @@ class AdminIndex extends AdminIndexView {
         parent::displayHeader("List All Accounts");
         
         ?>
+<div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-4"></div>
+            <div class="col">
+                <form class="form-group my-2" action="<?= BASE_URL ?>/admin/search">
+<!--                    <input class="form-control mr-sm-2" type="search" placeholder="Search by username" name="query-terms" aria-label="Search">
+                    <div class="text-center">
+                        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                    </div>-->
+                    
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" name="query-terms" class="form-control" id="inputPassword2" placeholder="username">
+                        </div>
+                        <button type="submit" class="btn btn-dark mb-2">Search</button>
+                    
+                </form>
+            </div>
+            <div class="col-4"></div>
 
-<div class="jumbotron text-center"><h3>Administrator Dashboard</h3></div>
+        </div>
+
             
 <div class="row">
     <div class="col-2"></div>
@@ -50,6 +69,14 @@ class AdminIndex extends AdminIndexView {
         </table>
     </div>   
     <div class="col-2"></div>
+</div>
+<div class="row">
+    
+    <div class="col text-center">
+        <a href="<?= BASE_URL ?>/admin/add"><button class="btn btn-dark">Add Account</button></a>
+    </div>
+    
+</div>
 </div>
 
 
