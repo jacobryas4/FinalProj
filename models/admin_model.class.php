@@ -129,4 +129,98 @@ class AdminModel {
         //execute the query
         return $this->dbConnection->query($sql);
     }
+    
+    // searches for accounts that match a certain criteria
+    public function search_account($terms) {
+        
+        $terms = explode(" ", $terms); // put multiple terms into an array
+        
+        // select statement for AND search
+        $sql = "SELECT * FROM " . $this->tblAccount . " WHERE username LIKE ";
+        
+        if (sizeof($terms) === 1) {
+            
+            $sql .= "'%$terms[0]%'";
+            
+        } else if (sizeof($terms) === 2) {
+            
+            $sql .= "'%$terms[0]%' OR username LIKE '%$terms[1]%'";
+            
+        } else if (sizeof($terms === 3)) {
+            $sql .= "'%$terms[0]%' OR username LIKE '%$terms[1]%' OR username LIKE '%$terms[2]%'";
+        }   
+        
+//        // add terms to sql statement if necessary
+//        if (sizeof($terms) === 1) {
+//            $sql .= "LIKE " . "'%" . $terms[0] . "%'";
+//        } else {
+//            foreach($terms as $term) {
+//                $sql .= "REGEXP%" . $term . "%" . "' OR username LIKE '" . $term . "'";
+//            }
+//        }
+            
+       
+        
+        
+        
+        
+        // execute query
+        $query = $this->dbConnection->query($sql);
+       
+        // if search failed return false
+        if(!$query) {
+            
+            return false;
+        }
+        
+        // if search succeeded but no movie was found
+        if($query->num_rows == 0) {
+            return 0;
+        }
+        
+        // search success and found a match
+        // create an array to store matches
+        $accounts = array();
+        
+        // loop through all rows in returned data
+        // still need to finish this, may have to vary a bit from kung fu panda
+        while($obj = $query->fetch_object()) {
+            $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
+            
+            // set the id for the account
+            //$account->setAccount_id($obj->id);
+            
+            // add accounts to array
+            $accounts[] = $account;
+        }
+        return $accounts;        
+        
+    }
+    
+    // add a new account
+    public function add_account() {
+        // if the script did not receive post data, display error and terminate
+        if (!filter_has_var(INPUT_POST, 'username') ||
+                !filter_has_var(INPUT_POST, 'password') ||
+                !filter_has_var(INPUT_POST, 'email') ||
+                !filter_has_var(INPUT_POST, 'balance') ||
+                !filter_has_var(INPUT_POST, 'role')) {
+        
+            return false;
+        }
+        
+        // retrieve info for the new account. Sanitize data and escape for security
+        $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
+        $password = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING)));
+        $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL)));
+        $balance = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'balance', FILTER_DEFAULT)));
+        $role = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'role', FILTER_DEFAULT)));
+        
+        // query string for add
+        $sql = "INSERT INTO " . $this->tblAccount . " (email, username, password, balance, role) VALUES ('" . 
+                $email . "', '" . $username . "', '" . $password . "', '" . $balance . "', '" . $role . "');";
+        
+        // execute query
+        return $this->dbConnection->query($sql);
+    }
 }
