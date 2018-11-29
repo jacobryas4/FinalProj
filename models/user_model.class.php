@@ -84,6 +84,7 @@ Class UserModel {
             $result_row = $query->fetch_assoc();
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
+
                 setcookie("username", $username);
                 return true;
             }
@@ -95,10 +96,11 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
-
+        
 //the -10 is to destroy session cookie; the empty string eliminates user data
         setcookie("username", '', -10);
         return true;
+
     }
 
 //reset password
