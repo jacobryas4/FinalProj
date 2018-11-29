@@ -4,7 +4,7 @@
  * Ryan Byrd
  * 11/20/2018
  * user_model.class.php
- * PHP and SQL interactivity so that various user funnctions actually work
+ * PHP and SQL interactivity so that various user functions actually work
  */
 
 Class UserModel {
@@ -12,11 +12,32 @@ Class UserModel {
 // attributes for running SQL statements in PHP off of the MariaDB database
     private $db;
     private $dbConnect;
+    static private $_instance = NULL;
+    private $tblUser;
 
 // constructor for calling up the database
     public function __construct() {
-        $this->db = Database::getInstance();
-        $this->dbConnect = $this->db->getConnection();
+        $this->db = Database::getDatabase();
+        $this->dbConnection = $this->db->getConnection();
+        $this->tblAccounts = $this->db->getUserTable();
+
+//        protect against SQL injection with a real_escape_string statement
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = $this->dbConnection->real_escape_string($value);
+        }
+
+        //protect against special characters being used in an SQL statement
+        foreach ($_GET as $key => $value) {
+            $_GET[$key] = $this->dbConnection->real_escape_string($value);
+        }
+    }
+
+    //static method to ensure there is just one AccountModel instance
+    public static function getUserModel() {
+        if (self::$_instance == NULL) {
+            self::$_instance = new UserModel();
+        }
+        return self::$_instance;
     }
 
 //add a user into the database
@@ -29,12 +50,14 @@ Class UserModel {
         $hash_pw = password_hash($pw, PASSWORD_DEFAULT);
 
 //retrieve all attributes from the user input form
+        $account_id = filter_input(INPUT_POST, "account_id", FILTER_SANITIZE_NUMBER_INT);
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $balance = filter_input(INPUT_POST, "balance", FILTER_SANITIZE_NUMBER_FLOAT);
+        $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
 
 //construct an INSERT query
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES(NULL, '$email', '$username', '$hash_pw', '$balance')";
+        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
 
 //execute the query and return true if successful or false if failed
         if ($this->dbConnection->query($sql) === TRUE) {
@@ -61,7 +84,7 @@ Class UserModel {
             $result_row = $query->fetch_assoc();
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
-                setcookie("user", $username);
+                setcookie("username", $username);
                 return true;
             }
         }
@@ -72,15 +95,15 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
-        
+
 //the -10 is to destroy session cookie; the empty string eliminates user data
-        setcookie("user", '', -10);
+        setcookie("username", '', -10);
         return true;
     }
 
 //reset password
     public function reset_password() {
-        
+
 //retrieve username and password from a form
         $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));

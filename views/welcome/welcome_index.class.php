@@ -21,6 +21,8 @@ class WelcomeIndex extends IndexView {
             
             <h4>Welcome to The Time Bank!</h4>
              <a href="<?= BASE_URL ?>/account/index">See Accounts</a>
+             <br>
+             <a href="<?= BASE_URL ?>/user/index">Dashboard</a>
             
         </div>
 
