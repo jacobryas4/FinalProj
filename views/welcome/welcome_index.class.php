@@ -14,8 +14,10 @@
 class WelcomeIndex extends IndexView {
 
     public function display() {
+
         //display page header
-        parent::displayHeader("Time Bank Home")
+        parent::displayHeader("Time Bank Home");
+                
         ?>    
         <div id="main-header">
             

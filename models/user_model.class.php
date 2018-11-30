@@ -103,29 +103,4 @@ Class UserModel {
 
     }
 
-//reset password
-    public function reset_password() {
-
-//retrieve username and password from a form
-        $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-        $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-
-//hash the password
-        $hash_pw = password_hash($pw, PASSWORD_DEFAULT);
-
-//the sql statement for update
-        $sql = "UPDATE  " . $this->db->getUserTable() . " SET password='$hash_pw' WHERE username='$username'";
-
-//execute the query
-        $query = $this->dbConnection->query($sql);
-
-//return false if no rows were affected
-        if (!$query || $this->dbConnection->affected_rows == 0) {
-
-            return false;
-        }
-
-        return true;
-    }
-
 }
