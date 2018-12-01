@@ -39,7 +39,7 @@ class UserController {
         $view = new Dashboard($account, $transactions);
         $view->display($account, $transactions);
     }
-    
+
     //display the homepage
     public function account_index_view() {
         $view = new AccountIndexView();
@@ -82,9 +82,15 @@ class UserController {
         $view->display();
     }
 
+    public function output() {
+        $view = new Output();
+        $view->display();
+    }
+
     //display an error message
     public function error($message) {
         $view = new UserError();
         $view->display($message);
     }
+
 }

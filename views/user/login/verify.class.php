@@ -19,7 +19,6 @@ class Verify extends IndexView {
                 <a href="<?= BASE_URL ?>/user/dashboard" class="btn btn-info" role="button">Dashboard</a>
             </div>
             <?php
-            
             //if the login was unsuccessful display the corresponding message and links
         } else {
             ?>

@@ -54,10 +54,10 @@ Class UserModel {
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $balance = filter_input(INPUT_POST, "balance", FILTER_SANITIZE_NUMBER_FLOAT);
-        $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
-
+        $role = 1;
+        
 //construct an INSERT query
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '1')";
+        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
 
 //execute the query and return true if successful or false if failed
         if ($this->dbConnection->query($sql) === TRUE) {
@@ -79,12 +79,12 @@ Class UserModel {
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
 
+                echo $username;
 //set a cookie if the password is verified
         if ($query AND $query->num_rows > 0) {
             $result_row = $query->fetch_assoc();
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
-
                 setcookie("username", $username, 0, '/');
                 return true;
             }
@@ -96,11 +96,10 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
-        
+
 //the -10 is to destroy session cookie; the empty string eliminates user data
         setcookie("username", '', -10, '/');
         return true;
-
     }
 
 }
