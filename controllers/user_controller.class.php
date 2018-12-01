@@ -34,6 +34,12 @@ class UserController {
         $view->display($result);
     }
 
+    //display the dashboard
+    public function dashboard($account, $transactions) {
+        $view = new Dashboard($account, $transactions);
+        $view->display($account, $transactions);
+    }
+    
     //display the homepage
     public function account_index_view() {
         $view = new AccountIndexView();

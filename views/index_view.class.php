@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Author: Adam Patrick
  * Date: 11/11/18
@@ -10,7 +11,6 @@ class IndexView {
 
 //create the page header
     public static function displayHeader($page_title) {
-
         ?>
         <!DOCTYPE html>
         <html>

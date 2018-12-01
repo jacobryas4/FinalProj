@@ -23,8 +23,6 @@ class UserRegister extends IndexView {
                     <input type="text" name="username" placeholder="Username" required><br>
                     <input type="password" name="password" placeholder="Password, 5 characters minimum" minlength="5" required><br>
                     <input type="email" name="email" placeholder="Email" required><br>
-                    <input type="text" name="first-name" placeholder="First Name" required><br>
-                    <input type="text" name="last-name" placeholder="Last Name" required><br>
                     <input type="submit" name="submit" placeholder="Register"><br>
                 </form>
             <!--Display the links-->

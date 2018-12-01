@@ -57,7 +57,7 @@ Class UserModel {
         $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
 
 //construct an INSERT query
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
+        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '1')";
 
 //execute the query and return true if successful or false if failed
         if ($this->dbConnection->query($sql) === TRUE) {
@@ -85,7 +85,7 @@ Class UserModel {
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
 
-                setcookie("username", $username);
+                setcookie("username", $username, 0, '/');
                 return true;
             }
         }
@@ -98,7 +98,7 @@ Class UserModel {
     public function logout() {
         
 //the -10 is to destroy session cookie; the empty string eliminates user data
-        setcookie("username", '', -10);
+        setcookie("username", '', -10, '/');
         return true;
 
     }

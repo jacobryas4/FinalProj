@@ -16,10 +16,10 @@ class Verify extends IndexView {
             ?>
             <div id="main-header">
                 <p>You have successfully logged in.</p>
-
-                <span style="float: left">Want to log out? <a href="<?= BASE_URL ?>/user/logout">Logout</a></span>
+                <a href="<?= BASE_URL ?>/user/dashboard" class="btn btn-info" role="button">Dashboard</a>
             </div>
             <?php
+            
             //if the login was unsuccessful display the corresponding message and links
         } else {
             ?>
@@ -31,7 +31,6 @@ class Verify extends IndexView {
             </div>
 
             <?php
-            
             parent::displayFooter();
         }
     }

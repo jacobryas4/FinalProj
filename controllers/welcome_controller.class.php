@@ -5,7 +5,7 @@
  *
  * @author jacobbryant
  */
-class WelcomeController extends UserController {
+class WelcomeController {
     
     public function index() {
         $view = new WelcomeIndex();
