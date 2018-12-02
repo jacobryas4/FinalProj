@@ -16,7 +16,7 @@ class Login extends IndexView {
             <form action="<?= BASE_URL ?>/user/verify" method="post">
                 <input type="text" name="username" placeholder="Username" required><br>
                 <input type="password" name="password" placeholder="Password" required><br>
-                <input type="submit" name="submit" placeholder="Login">
+                <input  type="submit" name="submit" placeholder="Login" onclick="myFunction()">
             </form>
             <!--Display the links-->
             <span style="float: left">Don't have an account? <a href="<?= BASE_URL ?>/user/user_register">Register</a></span>

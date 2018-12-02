@@ -75,19 +75,23 @@ Class UserModel {
 
 //filter table data by username
         $sql = "SELECT password, role FROM " . $this->db->getUserTable() . " WHERE username='$username'";
-        $role = '';
 
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
-        
+
 //set a cookie if the password is verified
         if ($query AND $query->num_rows > 0) {
             $result_row = $query->fetch_assoc();
+
+            //retrieve the value of role from the row the user invoked
+            $role = $result_row['role'];
+
+            //set a cookie to the role according to the user's name
+            setcookie("role", $role, 0, '/');
+
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
-                setcookie("username", $username, 0, '/') &&
-                //set the cookie for role 
-                setcookie("role", $role, 0, '/');
+                setcookie("username", $username, 0, '/');
                 return true;
             }
         }
@@ -101,6 +105,7 @@ Class UserModel {
 
 //the -10 is to destroy session cookie; the empty string eliminates user data
         setcookie("username", '', -10, '/');
+        setcookie("role", '', -10, '/');
         return true;
     }
 

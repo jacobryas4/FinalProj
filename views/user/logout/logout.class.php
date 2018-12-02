@@ -11,13 +11,14 @@ class Logout extends IndexView {
     public function display() {
 
         parent::displayHeader("The Time Bank");
+        
         ?>
         <div id="main-header">
             <!--Display the message-->
             <p>You have been logged out.</p>
             <!--Display the links-->
             <span style="float: left">Already have an account? <a href="<?= BASE_URL ?>/user/login">Login</a></span>
-            <span style="float: right">Don't have an account? <a href="<?= BASE_URL ?>/user/register">Register</a></span>
+            <span style="float: right">Don't have an account? <a href="<?= BASE_URL ?>/user/user_register">Register</a></span>
         </div>
         <?php
         parent::displayFooter();

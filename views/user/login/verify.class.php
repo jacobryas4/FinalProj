@@ -9,15 +9,24 @@ class Verify extends IndexView {
      */
 
     public function display($message) {
+
         //display page header
         parent::displayHeader("Time Bank Home");
+
         //if the login was successful display the corresponding message and links
         if ($message == true) {
-            
             ?>
             <div id="main-header">
                 <p>You have successfully logged in.</p>
                 <a href="<?= BASE_URL ?>/user/dashboard" class="btn btn-info" role="button">Dashboard</a>
+                <?php
+                //hide features from users who are not logged in as admin
+                if (isset($_COOKIE['role']) == 2) {
+                    ?>
+                    <a href="<?= BASE_URL ?>/admin/index" class="btn btn-success" role="button">View All Users</a>
+                    <?php
+                }
+                ?>
             </div>
             <?php
             //if the login was unsuccessful display the corresponding message and links

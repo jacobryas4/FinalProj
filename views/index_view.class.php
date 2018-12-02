@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Author: Adam Patrick
  * Date: 11/11/18
@@ -11,12 +10,13 @@ class IndexView {
 
 //create the page header
     public static function displayHeader($page_title) {
-print_r($_COOKIE);
-echo $_COOKIE['role'];
+        print_r($_COOKIE);
+
         ?>
         <!DOCTYPE html>
         <html>
             <head>
+             
                 <meta charset="UTF-8">
                 <title>Time Bank</title>
 
@@ -33,6 +33,7 @@ echo $_COOKIE['role'];
                     var base_url = "<?= BASE_URL ?>";
                 </script>
             </head>
+
             <body class="bg-secondary">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" href="<?= BASE_URL ?>/index.php">Time Bank</a>

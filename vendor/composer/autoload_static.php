@@ -30,7 +30,6 @@ class ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf
         'IndexView' => __DIR__ . '/../..' . '/views/index_view.class.php',
         'Login' => __DIR__ . '/../..' . '/views/user/login/login.class.php',
         'Logout' => __DIR__ . '/../..' . '/views/user/logout/logout.class.php',
-        'Output' => __DIR__ . '/../..' . '/views/user/output.class.php',
         'UserController' => __DIR__ . '/../..' . '/controllers/user_controller.class.php',
         'UserError' => __DIR__ . '/../..' . '/views/user/error/error.class.php',
         'UserModel' => __DIR__ . '/../..' . '/models/user_model.class.php',
