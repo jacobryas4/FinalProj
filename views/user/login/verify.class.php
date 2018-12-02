@@ -13,6 +13,7 @@ class Verify extends IndexView {
         parent::displayHeader("Time Bank Home");
         //if the login was successful display the corresponding message and links
         if ($message == true) {
+            
             ?>
             <div id="main-header">
                 <p>You have successfully logged in.</p>

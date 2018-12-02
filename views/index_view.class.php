@@ -12,6 +12,7 @@ class IndexView {
 //create the page header
     public static function displayHeader($page_title) {
 print_r($_COOKIE);
+echo $_COOKIE['role'];
         ?>
         <!DOCTYPE html>
         <html>

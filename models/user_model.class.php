@@ -55,7 +55,7 @@ Class UserModel {
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $balance = filter_input(INPUT_POST, "balance", FILTER_SANITIZE_NUMBER_FLOAT);
         $role = 1;
-        
+
 //construct an INSERT query
         $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
 
@@ -74,18 +74,20 @@ Class UserModel {
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
 //filter table data by username
-        $sql = "SELECT password FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+        $sql = "SELECT password, role FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+        $role = '';
 
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
-
-                echo $username;
+        
 //set a cookie if the password is verified
         if ($query AND $query->num_rows > 0) {
             $result_row = $query->fetch_assoc();
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
-                setcookie("username", $username, 0, '/');
+                setcookie("username", $username, 0, '/') &&
+                //set the cookie for role 
+                setcookie("role", $role, 0, '/');
                 return true;
             }
         }
