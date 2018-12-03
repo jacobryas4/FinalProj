@@ -10,12 +10,11 @@ class IndexView {
 
 //create the page header
     public static function displayHeader($page_title) {
-
         ?>
         <!DOCTYPE html>
         <html>
             <head>
-             
+
                 <meta charset="UTF-8">
                 <title>Time Bank</title>
 
@@ -32,7 +31,6 @@ class IndexView {
                     var base_url = "<?= BASE_URL ?>";
                 </script>
             </head>
-
             <body class="bg-secondary">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" href="<?= BASE_URL ?>/index.php">Time Bank</a>
@@ -50,11 +48,13 @@ class IndexView {
                     <!--Access login form-->
 
                     <?php
+                    //prompt the user to log in if they are not. 
                     if (isset($_COOKIE["username"])) {
                         ?>
                         <div class="dropdown">
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                 <?php
+                                //display the username if logged in
                                 echo "Hello, " . $_COOKIE["username"];
                                 ?>
                             </button>

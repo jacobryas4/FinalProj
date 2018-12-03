@@ -88,7 +88,10 @@ Class UserModel {
 
             //set a cookie to the role according to the user's name
             setcookie("role", $role, 0, '/');
-
+            
+            //assign the cookie to the variable role so that this information is immediately detected on the page.
+            $_COOKIE['role'] = $role;
+            
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
                 setcookie("username", $username, 0, '/');
