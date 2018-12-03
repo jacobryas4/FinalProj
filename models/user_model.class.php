@@ -92,6 +92,9 @@ Class UserModel {
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
                 setcookie("username", $username, 0, '/');
+
+                //make the website display who is logged in from the header
+                $_COOKIE['username'] = $username;
                 return true;
             }
         }
@@ -102,10 +105,17 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
+        
+        //unset the username so the user may log out
+        $username = "username";
+        unset($_COOKIE[$username]);
+        $username = setcookie($username, '', time() - 3600, '/');
 
-//the -10 is to destroy session cookie; the empty string eliminates user data
-        setcookie("username", '', -10, '/');
-        setcookie("role", '', -10, '/');
+        //unset the role so the user may log out
+        $role = "role";
+        unset($_COOKIE[$role]);
+        $role = setcookie($role, '', time() - 3600, '/');
+        
         return true;
     }
 

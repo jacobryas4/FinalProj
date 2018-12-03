@@ -82,11 +82,6 @@ class UserController {
         $view->display();
     }
 
-    public function output() {
-        $view = new Output();
-        $view->display();
-    }
-
     //display an error message
     public function error($message) {
         $view = new UserError();
