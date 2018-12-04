@@ -20,11 +20,11 @@ class UserRegister extends IndexView {
             <form action="<?= BASE_URL ?>/user/UserRegisterVerify" method="post">
                 <!--Get user registration data-->
                 <label for="username">Username:</label>
-                <input type="text" class="form-control col-3" name="username" placeholder="Username" required>
+                <input type="text" class="form-control col-3" name="username" placeholder="Username">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control col-3" name="password" placeholder="Password, 5 characters minimum" minlength="5" required>
+                <input type="text" class="form-control col-3" name="password" placeholder="Password, 5 characters minimum">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control col-3" name="email" placeholder="Email" required><br/>
+                <input type="text" class="form-control col-3" name="email" placeholder="Email"><br/>
                 <input type="submit" class="btn btn-info" name="submit" placeholder="Register">
             </form>
             <br/>

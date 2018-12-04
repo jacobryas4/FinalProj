@@ -43,38 +43,42 @@ class AccountModel {
 
     //the list_account method is intended to be an admin only feature that allows for viewing all people registered on the site
     //monetary possessions are not included in the account table
-
     public function list_account() {
-        
-        $sql = "SELECT * FROM " . $this->tblAccount;
-       
-        //execute the query
-        $query = $this->dbConnection->query($sql);
+        try {
+            $sql = "SELECT * FROM " . $this->tblAccount;
 
-        // if the query failed, return false. 
-        if (!$query) {
-            return false;
-        }
-        //if the query succeeded, but no accounts were found.
-        if ($query->num_rows == 0) {
-            return 0;
-        }
-        //search succeeded, and found at least 1 account
-        //create an array to store all the returned accounts
-        $accounts = array();
-        
-        //loop through all rows in the returned recordsets
-        while ($obj = $query->fetch_object()) {
-            $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
+            //execute the query
+            $query = $this->dbConnection->query($sql);
 
-            //set the id for the account
-            $account->setAccount_id($obj->account_id);
+            // if the query failed, return false. 
+            if (!$query) {
+                throw new DatabaseException("The query failed");
+            }
+            //if the query succeeded, but no accounts were found.
+            if ($query->num_rows == 0) {
+                throw new DatabaseException("No accounts were found");
+            }
+            //search succeeded, and found at least 1 account
+            //create an array to store all the returned accounts
+            $accounts = array();
 
-            //add the account into the array
-            $accounts[] = $account;
+            //loop through all rows in the returned recordsets
+            while ($obj = $query->fetch_object()) {
+                $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
+
+                //set the id for the account
+                $account->setAccount_id($obj->account_id);
+
+                //add the account into the array
+                $accounts[] = $account;
+            }
+
+            return $accounts;
+        } catch (DatabaseException $e) {
+            $c = new AdminController();
+            $c->error($e->getMessage());
+            exit;
         }
-        
-        return $accounts;
     }
 
     //display an individual account
@@ -84,49 +88,63 @@ class AccountModel {
         $sql = "SELECT * "
                 . "FROM " . $this->tblAccount .
                 " WHERE " . $this->tblAccount . ".id='$id'";
+        try {
+            //execute the query
+            $query = $this->dbConnection->query($sql);
 
-        //execute the query
-        $query = $this->dbConnection->query($sql);
+            if ($query && $query->num_rows > 0) {
+                $obj = $query->fetch_object();
 
-        if ($query && $query->num_rows > 0) {
-            $obj = $query->fetch_object();
+                //create a account object
+                $account = new Account(
+                        stripslashes($obj->account_id), stripslashes($obj->email), stripslashes($obj->username), stripslashes($obj->password));
 
-            //create a account object
-            $account = new Account(
-                    stripslashes($obj->account_id), stripslashes($obj->email), stripslashes($obj->username), stripslashes($obj->password));
+                //set the id for the account
+                $account->setId($obj->id);
 
-            //set the id for the account
-            $account->setId($obj->id);
+                return $account;
+            }
 
-            return $account;
+            throw new DatabaseException("Could not load account");
+        } catch (DatabaseException $e) {
+            $c = new AdminController();
+            $c->error($e->getMessage());
+            exit;
         }
-
-        return false;
     }
 
     //update account method to adjust sample data about a user
     public function update_account($id) {
-        //check if data was received, end the program if it was not.
-        if (!filter_has_var(INPUT_POST, 'account_id') ||
-                !filter_has_var(INPUT_POST, 'email') ||
-                !filter_has_var(INPUT_POST, 'username') ||
-                !filter_has_var(INPUT_POST, 'password')) {
+        try {
+            //check if data was received, end the program if it was not.
+            if (!filter_has_var(INPUT_POST, 'account_id') ||
+                    !filter_has_var(INPUT_POST, 'email') ||
+                    !filter_has_var(INPUT_POST, 'username') ||
+                    !filter_has_var(INPUT_POST, 'password')) {
 
-            return false;
+                throw DataMissingException("Recieved incomplete or missing data");
+            }
+
+            //retrieve data for the new account; data are sanitized and escaped for security.
+            $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING)));
+            $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
+            $password = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+
+            //query string for update 
+            $sql = "UPDATE " . $this->tblAccount .
+                    " SET email='$email', username='$username', password='$password'"
+                    . "WHERE id='$id'";
+
+            //execute the query
+            if ($this->dbConnection->query($sql)) {
+                return $this->dbConnection->query($sql);
+            } else {
+                throw new DatabaseException("Couldnt access the database or bad statement");
+            }
+        } catch (DatabaseException $e) {
+            $c = new AdminController();
+            $c->error($e->getMessage());
+            exit;
         }
-
-        //retrieve data for the new account; data are sanitized and escaped for security.
-        $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING)));
-        $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
-        $password = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
-
-        //query string for update 
-        $sql = "UPDATE " . $this->tblAccount .
-                " SET email='$email', username='$username', password='$password'"
-                . "WHERE id='$id'";
-
-        //execute the query
-        return $this->dbConnection->query($sql);
     }
-
-}
+}    

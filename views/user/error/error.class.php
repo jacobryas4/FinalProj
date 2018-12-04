@@ -1,29 +1,30 @@
 <?php
+
 /*
- * Ryan Byrd 
- * 12/1/2018
- * error.class.php
- * A page that displays something went wrong
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
 /**
- * Description of error
+ * Description of admin_error
  *
- * @author ryand
+ * @author jacobbryant
  */
-class UserError extends IndexView {
-
-    public function display() {
-        parent::displayHeader("The Time Bank");
+class UserError extends UserIndexView {
+    
+    public function display($message) {
+        
+        // display Header
+        parent::displayHeader("Error");
         ?>
-        <div id="main-header">
-
-            <!--display an error on the page without breaking the application -->
-            <h4>Sorry, something went wrong with creating your account.</h4>
-            <p>Try a different username or email.</p>
-        </div>
+        <div id="main-header"></div>
+        <div><?= urldecode($message) ?></div>
+        <br><br><br>
+        <a href="<?= BASE_URL ?>/user/login">Back to login</a>
         <?php
+        
         parent::displayFooter();
     }
-
+    
 }

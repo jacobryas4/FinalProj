@@ -44,7 +44,7 @@ Class UserModel {
     public function add_user() {
 
 //retrieve password, then remove white space, filter, and sanitize
-        $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+        $pw = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
 //function to hash the password
         $hash_pw = password_hash($pw, PASSWORD_DEFAULT);
@@ -56,14 +56,58 @@ Class UserModel {
         $balance = filter_input(INPUT_POST, "balance", FILTER_SANITIZE_NUMBER_FLOAT);
         $role = 1;
 
+        try {
+            //check for empty fields
+            if (empty($email) || empty($username)) {
+                throw new DataMissingException("Values were missing in one or more fields.");
+            }
+            //check for proper email formatting
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new EmailException("Your email format was invalid");
+            }
+            if (strlen($pw) < 5) {
+                throw new DataLengthException("Minimum password length is 5");
+            }
+//            //check for valid balance input
+//            if ($balance < 0){
+//                throw new LessThanZeroException("Balance must be more than zero");
+//            }
+//            if(!filter_var($balance, FILTER_VALIDATE_INT)) {
+//                throw new BalanceTypeException("Balance must be a number");
+//            }
 //construct an INSERT query
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
+            $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
 
 //execute the query and return true if successful or false if failed
-        if ($this->dbConnection->query($sql) === TRUE) {
-            return true;
-        } else {
-            return false;
+            if ($this->dbConnection->query($sql) === TRUE) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (DataMissingException $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
+        } catch (EmailException $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
+        } catch (DataLengthException $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
+//        } catch (LessThanZeroException $e) {
+//            $c = new UserController();
+//            $c->error($e->getMessage());
+//            exit;            
+//        } catch (BalanceTypeException $e) {
+//            $c = new UserController();
+//            $c->error($e->getMessage());
+//            exit;            
+        } catch (Exception $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
         }
     }
 
@@ -73,42 +117,67 @@ Class UserModel {
         $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
+        try {
+            //check for empty fields
+            if (empty($username) || empty($pw)) {
+                throw new DataMissingException("Values were missing in one or more fields.");
+            }
 //filter table data by username
-        $sql = "SELECT password, role FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+            $sql = "SELECT password, role FROM " . $this->db->getUserTable() . " WHERE username='$username'";
 
 //Run SQL statement
-        $query = $this->dbConnection->query($sql);
+            $query = $this->dbConnection->query($sql);
 
-//set a cookie if the password is verified
-        if ($query AND $query->num_rows > 0) {
-            $result_row = $query->fetch_assoc();
-
-            //retrieve the value of role from the row the user invoked
-            $role = $result_row['role'];
-
-            //set a cookie to the role according to the user's name
-            setcookie("role", $role, 0, '/');
-            
-            //assign the cookie to the variable role so that this information is immediately detected on the page.
-            $_COOKIE['role'] = $role;
-            
-            $hash = $result_row['password'];
-            if (password_verify($pw, $hash)) {
-                setcookie("username", $username, 0, '/');
-
-                //make the website display who is logged in from the header
-                $_COOKIE['username'] = $username;
-                return true;
+            if (!$query) {
+                throw new DatabaseException("We cannot verify your account at this moment");
             }
-        }
+//set a cookie if the password is verified
+            if ($query AND $query->num_rows > 0) {
+                $result_row = $query->fetch_assoc();
+
+                //retrieve the value of role from the row the user invoked
+                $role = $result_row['role'];
+
+                //set a cookie to the role according to the user's name
+                setcookie("role", $role, 0, '/');
+
+                //assign the cookie to the variable role so that this information is immediately detected on the page.
+                $_COOKIE['role'] = $role;
+
+                $hash = $result_row['password'];
+                if (password_verify($pw, $hash)) {
+                    setcookie("username", $username, 0, '/');
+
+                    //make the website display who is logged in from the header
+                    $_COOKIE['username'] = $username;
+                    return true;
+                } else {
+                    throw new DatabaseException("Your login is invalid");
+                }
+            } else {
+                throw new DatabaseException("Your login is invalid");
+            }
 
 //return false if credentials are rejected (user does not log in)
-        return false;
+            return false;
+        } catch (DataMissingException $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
+        } catch (DatabaseException $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
+        } catch (Exception $e) {
+            $c = new UserController();
+            $c->error($e->getMessage());
+            exit;
+        }
     }
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
-        
+
         //unset the username so the user may log out
         $username = "username";
         unset($_COOKIE[$username]);
@@ -118,7 +187,7 @@ Class UserModel {
         $role = "role";
         unset($_COOKIE[$role]);
         $role = setcookie($role, '', time() - 3600, '/');
-        
+
         return true;
     }
 

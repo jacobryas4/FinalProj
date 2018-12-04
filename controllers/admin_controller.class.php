@@ -100,11 +100,11 @@ class AdminController {
         $addAccount = $this->admin_model->add_account();
         
         // handle updates
-        if(!$addAccount) {
-            $message = "There was a problem adding the account";
-            $this->error($message);
-            return;
-        }
+//        if(!$addAccount) {
+//            $message = "There was a problem adding the account";
+//            $this->error($message);
+//            return;
+//        }
         
         //retrieve all accounts and store them in an array
         $accounts = $this->admin_model->list_account();

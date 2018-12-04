@@ -11,7 +11,7 @@ class AccountIndex extends AccountIndexView {
     //create the method that will be called to display this page
     public function display($accounts){
         //display the header
-        parent::displayHeader();
+        parent::displayHeader($title);
         
         ?>
             <!--Create table and table headers-->

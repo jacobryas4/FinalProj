@@ -16,8 +16,8 @@ class Login {
         <div class="middle-row">
             <!--Get user login info and post it to the model-->
             <form action="<?= BASE_URL ?>/user/verify" method="post">
-                <input type="text" name="username" placeholder="Username" required><br>
-                <input type="password" name="password" placeholder="Password" required><br>
+                <input type="text" name="username" placeholder="Username"><br>
+                <input type="password" name="password" placeholder="Password"><br>
                 <input type="submit" name="submit" placeholder="Login">
             </form>
         </div>
