@@ -33,6 +33,14 @@ class UserController {
         $view = new Verify();
         $view->display($result);
     }
+    
+        //display the login page
+    public function index() {
+
+        //display index
+        $view = new Index();
+        $view->display();
+    }
 
     //display the dashboard
     public function dashboard($account, $transactions) {
