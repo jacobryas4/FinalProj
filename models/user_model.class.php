@@ -54,7 +54,7 @@ Class UserModel {
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $balance = filter_input(INPUT_POST, "balance", FILTER_SANITIZE_NUMBER_FLOAT);
-        $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
+        $role = 1;
 
 //construct an INSERT query
         $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
@@ -74,7 +74,7 @@ Class UserModel {
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
 //filter table data by username
-        $sql = "SELECT password FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+        $sql = "SELECT password, role FROM " . $this->db->getUserTable() . " WHERE username='$username'";
 
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
@@ -82,9 +82,22 @@ Class UserModel {
 //set a cookie if the password is verified
         if ($query AND $query->num_rows > 0) {
             $result_row = $query->fetch_assoc();
+
+            //retrieve the value of role from the row the user invoked
+            $role = $result_row['role'];
+
+            //set a cookie to the role according to the user's name
+            setcookie("role", $role, 0, '/');
+            
+            //assign the cookie to the variable role so that this information is immediately detected on the page.
+            $_COOKIE['role'] = $role;
+            
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
-                setcookie("username", $username);
+                setcookie("username", $username, 0, '/');
+
+                //make the website display who is logged in from the header
+                $_COOKIE['username'] = $username;
                 return true;
             }
         }
@@ -95,34 +108,17 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
+        
+        //unset the username so the user may log out
+        $username = "username";
+        unset($_COOKIE[$username]);
+        $username = setcookie($username, '', time() - 3600, '/');
 
-//the -10 is to destroy session cookie; the empty string eliminates user data
-        setcookie("username", '', -10);
-        return true;
-    }
-
-//reset password
-    public function reset_password() {
-
-//retrieve username and password from a form
-        $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-        $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
-
-//hash the password
-        $hash_pw = password_hash($pw, PASSWORD_DEFAULT);
-
-//the sql statement for update
-        $sql = "UPDATE  " . $this->db->getUserTable() . " SET password='$hash_pw' WHERE username='$username'";
-
-//execute the query
-        $query = $this->dbConnection->query($sql);
-
-//return false if no rows were affected
-        if (!$query || $this->dbConnection->affected_rows == 0) {
-
-            return false;
-        }
-
+        //unset the role so the user may log out
+        $role = "role";
+        unset($_COOKIE[$role]);
+        $role = setcookie($role, '', time() - 3600, '/');
+        
         return true;
     }
 
