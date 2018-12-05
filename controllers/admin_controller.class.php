@@ -54,7 +54,6 @@ class AdminController {
         
         if ($accounts === false) {
             // handle error
-            var_dump($query_terms);
             $message = "An error has occured.";
             $this->error($message);
             return;
@@ -64,8 +63,22 @@ class AdminController {
         $search = new AdminSearch();
         $search->display($query_terms, $accounts);
         
+    }  
+    
+    public function suggest($terms) {
+        // retrieve terms
+        $query_terms = urldecode(trim($terms));
+        $accounts = $this->admin_model->search_account($query_terms);
         
-    }   
+        // create array of accounts
+        $names = array();
+        if ($accounts) {
+            foreach($accounts as $account) {
+                $names[] = $account->getUsername(); 
+            }
+        }
+        echo json_encode($names);
+    }
     
     // error handling
     public function error($message) {
@@ -114,5 +127,49 @@ class AdminController {
         $view->display($accounts);
         
     }
+    
+    // present form to update account
+    public function update($id) {
+        
+        //retrieve all accounts and store them in an array
+        $account = $this->admin_model->view_account($id);
+        
+        
+        if (!$account) {
+            //display an error
+            $message = "There was a problem displaying the accounts.";
+            $this->error($message);
+            return;
+        }
+        
+        // display all
+        $view = new AdminUpdate();
+        $view->display($account);
+        
+    }
+    
+    // actually update account info in the database
+    public function updateAccount($id) {
+        
+        // update the account
+        $update = $this->admin_model->update_account($id);
+        var_dump($update);
+        if (!$update) {
+            // error handling
+            $message = "There was a problem updating account id=" . $id;
+            $this->error($message);
+            return;
+        }
+        
+        //retrieve all accounts and store them in an array
+        $accounts = $this->admin_model->list_account();
+        
+        // display results
+        $view = new AdminIndex();
+        $view->display($accounts);
+        
+    }
+    
+    
     
 }

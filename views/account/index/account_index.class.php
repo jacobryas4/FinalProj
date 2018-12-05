@@ -12,7 +12,6 @@ class AccountIndex extends AccountIndexView {
         parent::displayHeader("List All Accounts");
         
         ?>
-            
             <table class="table table-striped bg-light">
                 <thead>
                   <tr>
