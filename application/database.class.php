@@ -13,8 +13,8 @@ class Database {
     //define database parameters
     private $param = array(
         'host' => 'localhost',
-        'login' => 'root',
-        'password' => '',
+        'login' => 'phpuser',
+        'password' => 'phpuser',
         'database' => 'first_db',
         'tblAccounts' => 'account',
         'tblTransaction' => 'transaction',

@@ -182,7 +182,7 @@ class AdminModel {
 
         try {
             //check if data was received, end the program if it was not.
-            if (!filter_has_var(INPUT_POST, 'account_id') ||
+            if (!filter_has_var(INPUT_POST, 'balance') ||
                     !filter_has_var(INPUT_POST, 'email') ||
                     !filter_has_var(INPUT_POST, 'username') ||
                     !filter_has_var(INPUT_POST, 'password')) {
@@ -193,17 +193,20 @@ class AdminModel {
             //retrieve data for the new account; data are sanitized and escaped for security.
             $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING)));
             $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
-            $password = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+            // $password = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+            $balance = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'balance', FILTER_DEFAULT));
 
             //query string for update 
             $sql = "UPDATE " . $this->tblAccount .
-                    " SET email='$email', username='$username', password='$password'"
-                    . "WHERE id='$id'";
+                    " SET email='$email', username='$username', balance='$balance'"
+                    . " WHERE account_id='$id'";
 
             //execute the query
             if ($this->dbConnection->query($sql)) {
+                
                 return $this->dbConnection->query($sql);
             } else {
+                var_dump($sql);
                 throw new DatabaseException("Couldnt access the database or bad statement");
             }
         } catch (DatabaseException $e) {
@@ -323,6 +326,12 @@ class AdminModel {
         
 
         // retrieve info for the new account. Sanitize data and escape for security
+        // $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
+        // $password = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING)));
+        // $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL)));
+        // $balance = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'balance', FILTER_DEFAULT)));
+        // $role = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'role', FILTER_DEFAULT)));
+
         $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
         $password = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING)));
         $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL)));
@@ -350,7 +359,7 @@ class AdminModel {
             if ($balance < 0) {
                 throw new LessThanZeroException("Balance must be more than zero");
             }
-            if (!filter_var($balance, FILTER_VALIDATE_INT)) {
+            if (!filter_var($balance, FILTER_VALIDATE_FLOAT)) {
                 throw new BalanceTypeException("Balance must be a number");
             }
 
@@ -397,11 +406,11 @@ class AdminModel {
 
         
         // query string for add
-        $sql = "INSERT INTO " . $this->tblAccount . " (email, username, password, balance, role) VALUES ('" . 
-                $email . "', '" . $username . "', '" . $password . "', '" . $balance . "', '" . $role . "');";
+        // $sql = "INSERT INTO " . $this->tblAccount . " (email, username, password, balance, role) VALUES ('" . 
+        //         $email . "', '" . $username . "', '" . $password . "', '" . $balance . "', '" . $role . "');";
         
         // execute query
-        return $this->dbConnection->query($sql);
-    }
+        // return $this->dbConnection->query($sql);
+    
 
 }

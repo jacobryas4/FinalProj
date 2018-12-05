@@ -34,7 +34,6 @@ class AdminUpdate extends AdminIndexView {
 
                             <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getUsername(); ?>">
 
-                            <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getUsername(); ?>" required>
 
                         </div>
                     </div>
@@ -43,7 +42,6 @@ class AdminUpdate extends AdminIndexView {
 
                           <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getEmail(); ?>">
 
-                          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getEmail(); ?>" required>
 
                         </div>
                     </div>
@@ -53,18 +51,16 @@ class AdminUpdate extends AdminIndexView {
                     <div class="col">
                         <div class="form-group">
 
-                          <input type="text" name="balance" class="form-control" value="<?= $account->getPassword(); ?>">
+                          <input type="text" name="password" class="form-control" value="<?= $account->getBalance(); ?>">
 
-                          <input type="text" name="balance" class="form-control" value="<?= $account->getPassword(); ?>" required>
 
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
 
-                            <input type="text" class="form-control" name="password" aria-describedby="emailHelp" value="<?= $account->getBalance(); ?>">
+                            <input type="text" class="form-control" name="balance" aria-describedby="emailHelp" value="<?= $account->getPassword(); ?>">
 
-                            <input type="text" class="form-control" name="password" aria-describedby="emailHelp" value="<?= $account->getBalance(); ?>" required>
 
                             
                         </div>
