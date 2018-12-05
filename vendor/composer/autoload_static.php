@@ -24,7 +24,9 @@ class ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf
         'AdminUpdate' => __DIR__ . '/../..' . '/views/admin/update/admin_update.class.php',
         'Balance' => __DIR__ . '/../..' . '/models/balance.class.php',
         'BalanceModel' => __DIR__ . '/../..' . '/models/balance_model.class.php',
+
         'BalanceTypeException' => __DIR__ . '/../..' . '/exceptions/balance_type_exception.class.php',
+
         'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_static.php',
@@ -35,7 +37,9 @@ class ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf
         'Dispatcher' => __DIR__ . '/../..' . '/application/dispatcher.class.php',
         'EmailException' => __DIR__ . '/../..' . '/exceptions/email_exception.class.php',
         'IndexView' => __DIR__ . '/../..' . '/views/index_view.class.php',
+
         'LessThanZeroException' => __DIR__ . '/../..' . '/exceptions/less_than_zero_exception.class.php',
+
         'UserController' => __DIR__ . '/../..' . '/controllers/user_controller.class.php',
         'UserDashboardView' => __DIR__ . '/../..' . '/views/user/dashboard/user_dashboard.class.php',
         'UserIndexView' => __DIR__ . '/../..' . '/views/user/user_index_view.class.php',
