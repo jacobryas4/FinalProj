@@ -66,7 +66,7 @@ class AdminModel {
         
         //loop through all rows in the returned recordsets
         while ($obj = $query->fetch_object()) {
-            $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
+            $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->balance, $obj->password);
 
             //set the id for the account
             $account->setAccount_id($obj->account_id);
@@ -84,7 +84,7 @@ class AdminModel {
         //the select sql statement
         $sql = "SELECT * "
                 . "FROM " . $this->tblAccount .
-                " WHERE " . $this->tblAccount . ".id='$id'";
+                " WHERE account_id=" . $id ;
 
         //execute the query
         $query = $this->dbConnection->query($sql);
@@ -94,24 +94,25 @@ class AdminModel {
 
             //create a account object
             $account = new Account(
-                    stripslashes($obj->account_id), stripslashes($obj->email), stripslashes($obj->username), stripslashes($obj->password));
+                    stripslashes($obj->account_id), stripslashes($obj->email), stripslashes($obj->username), stripslashes($obj->password), stripslashes($obj->balance));
 
             //set the id for the account
-            $account->setId($obj->id);
+            //$account->setId($obj->id);
 
             return $account;
         }
-
+        
         return false;
     }
 
     //update account method to adjust sample data about a user
     public function update_account($id) {
         //check if data was received, end the program if it was not.
-        if (!filter_has_var(INPUT_POST, 'account_id') ||
+        
+        if (!filter_has_var(INPUT_POST, 'password') ||
                 !filter_has_var(INPUT_POST, 'email') ||
                 !filter_has_var(INPUT_POST, 'username') ||
-                !filter_has_var(INPUT_POST, 'password')) {
+                !filter_has_var(INPUT_POST, 'balance')) {
 
             return false;
         }
@@ -119,15 +120,16 @@ class AdminModel {
         //retrieve data for the new account; data are sanitized and escaped for security.
         $email = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING)));
         $username = $this->dbConnection->real_escape_string(trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING)));
-        $password = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
+        $balance = $this->dbConnection->real_escape_string(filter_input(INPUT_POST, 'balance', FILTER_DEFAULT));
 
         //query string for update 
         $sql = "UPDATE " . $this->tblAccount .
-                " SET email='$email', username='$username', password='$password'"
-                . "WHERE id='$id'";
-
+                " SET email='$email', username='$username', balance='$balance'"
+                . "WHERE account_id='$id'";
+        
         //execute the query
         return $this->dbConnection->query($sql);
+        
     }
     
     // searches for accounts that match a certain criteria
@@ -185,7 +187,7 @@ class AdminModel {
         // loop through all rows in returned data
         // still need to finish this, may have to vary a bit from kung fu panda
         while($obj = $query->fetch_object()) {
-            $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->password);
+            $account = new Account($obj->account_id, $obj->email, $obj->username, $obj->balance, $obj->password);
             
             // set the id for the account
             //$account->setAccount_id($obj->id);

@@ -11,15 +11,14 @@ Class UserModel {
 
 // attributes for running SQL statements in PHP off of the MariaDB database
     private $db;
-    private $dbConnect;
     static private $_instance = NULL;
-    private $tblUser;
 
 // constructor for calling up the database
     public function __construct() {
         $this->db = Database::getDatabase();
         $this->dbConnection = $this->db->getConnection();
         $this->tblAccounts = $this->db->getUserTable();
+        $this->tblTransactions = $this->db->getTransactionTable();
 
 //        protect against SQL injection with a real_escape_string statement
         foreach ($_POST as $key => $value) {
@@ -74,7 +73,7 @@ Class UserModel {
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
 //filter table data by username
-        $sql = "SELECT password, role FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+        $sql = "SELECT password, role, account_id FROM " . $this->db->getUserTable() . " WHERE username='$username'";
 
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
@@ -85,6 +84,9 @@ Class UserModel {
 
             //retrieve the value of role from the row the user invoked
             $role = $result_row['role'];
+
+            //retrieve the value of the user's unique account ID to call up data
+            $id = $result_row['account_id'];
 
             //set a cookie to the role according to the user's name
             setcookie("role", $role, 0, '/');
@@ -98,6 +100,11 @@ Class UserModel {
 
                 //make the website display who is logged in from the header
                 $_COOKIE['username'] = $username;
+
+
+                setcookie("id", $id, 0, '/');
+                $_COOKIE['id'] = $id;
+
                 return true;
             }
         }
@@ -119,15 +126,21 @@ Class UserModel {
         unset($_COOKIE[$role]);
         $role = setcookie($role, '', time() - 3600, '/');
 
+        //delete the user's id
+        $id = "id";
+        unset($_COOKIE[$id]);
+        $id = setcookie($id, '', time() - 3600, '/');
+
         return true;
     }
 
     //list all transactions
-    public function list_transactions() {
-        
-        
-        $sql = "SELECT * FROM " . $this->tblTransaction . "WHERE username='$username'";
-       
+    public function list_transactions($id) {
+
+
+        //the select ssql statement
+        $sql = "SELECT * " . "FROM " . $this->tblTransactions . " WHERE account_id=" . $id;
+
         //execute the query
         $query = $this->dbConnection->query($sql);
 
@@ -137,24 +150,24 @@ Class UserModel {
         }
         //if the query succeeded, but no accounts were found.
         if ($query->num_rows == 0) {
-            return 0;
+            return "No transactions to display.";
         }
-        
+
         //search succeeded, and found at least 1 account
         //create an array to store all the returned accounts
         $transactions = array();
-        
+
         //loop through all rows in the returned recordsets
         while ($obj = $query->fetch_object()) {
             $transaction = new Transaction($obj->transaction_id, $obj->amount, $obj->transaction_type, $obj->date_of_transaction);
 
             //set the id for the account
-            $transaction->setTransaction_id($obj->Transaction_id);
-
-            //add the account into the array
+            //$transaction->setTransaction_id($obj->Transaction_id);
+            //add the transaction into the array
             $transactions[] = $transaction;
         }
-        
+
         return $transactions;
     }
+
 }

@@ -17,9 +17,9 @@ class Login extends IndexView {
             <!--Get user login info and post it to the model-->
             <form action="<?= BASE_URL ?>/user/verify" method="post">
                 <label for="username">Username:</label>
-                <input type="text" class="form-control col-3" name="username" placeholder="Username" required>
+                <input type="text" class="form-control col-3" name="username" placeholder="Username">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control col-3" name="password" placeholder="Password" required><br/>
+                <input type="password" class="form-control col-3" name="password" placeholder="Password"><br/>
                 <input  type="submit" class ="btn btn-info" name="submit" placeholder="Login" >
             </form><br/>
             <!--Display the links-->

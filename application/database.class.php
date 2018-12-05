@@ -13,11 +13,11 @@ class Database {
     //define database parameters
     private $param = array(
         'host' => 'localhost',
-        'login' => 'root',
-        'password' => '',
-        'database' => 'first_db',
+        'login' => 'phpuser',
+        'password' => 'phpuser',
+        'database' => 'first_db1',
         'tblAccounts' => 'account',
-        'tblTransaction' => 'transaction',
+        'tblTransactions' => 'transaction',
     );
  
     //define the database connection object
