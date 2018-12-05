@@ -31,12 +31,12 @@ class AdminUpdate extends AdminIndexView {
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getUsername(); ?>" required>
+                            <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getUsername(); ?>">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getEmail(); ?>" required>
+                          <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $account->getEmail(); ?>">
                         </div>
                     </div>
                 </div>
@@ -44,12 +44,12 @@ class AdminUpdate extends AdminIndexView {
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                          <input type="text" name="balance" class="form-control" value="<?= $account->getPassword(); ?>" required>
+                          <input type="text" name="balance" class="form-control" value="<?= $account->getPassword(); ?>">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="password" aria-describedby="emailHelp" value="<?= $account->getBalance(); ?>" required>
+                            <input type="text" class="form-control" name="password" aria-describedby="emailHelp" value="<?= $account->getBalance(); ?>">
                             
                         </div>
                     </div>
