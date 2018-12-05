@@ -23,12 +23,22 @@ return array(
     'AdminUpdate' => $baseDir . '/views/admin/update/admin_update.class.php',
     'Balance' => $baseDir . '/models/balance.class.php',
     'BalanceModel' => $baseDir . '/models/balance_model.class.php',
+
+    'BalanceTypeException' => $baseDir . '/exceptions/balance_type_exception.class.php',
+
     'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_static.php',
+    'DataLengthException' => $baseDir . '/exceptions/data_length_exception.class.php',
+    'DataMissingException' => $baseDir . '/exceptions/data_missing_exception.class.php',
     'Database' => $baseDir . '/application/database.class.php',
+    'DatabaseException' => $baseDir . '/exceptions/database_exception.class.php',
     'Dispatcher' => $baseDir . '/application/dispatcher.class.php',
+    'EmailException' => $baseDir . '/exceptions/email_exception.class.php',
     'IndexView' => $baseDir . '/views/index_view.class.php',
+
+    'LessThanZeroException' => $baseDir . '/exceptions/less_than_zero_exception.class.php',
+
     'UserController' => $baseDir . '/controllers/user_controller.class.php',
     'UserDashboardView' => $baseDir . '/views/user/dashboard/user_dashboard.class.php',
     'UserIndexView' => $baseDir . '/views/user/user_index_view.class.php',

@@ -32,12 +32,20 @@ class AdminAdd extends AdminIndexView {
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
+
+                          <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username">
+
                           <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username" required>
+
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
+
+                          <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
                           <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+
                         </div>
                     </div>
                 </div>
@@ -45,18 +53,30 @@ class AdminAdd extends AdminIndexView {
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
+
+                          <input type="text" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password">
+
                           <input type="text" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" required>
+
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
+
+                          <input type="text" class="form-control" name="balance" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter balance">
+
                           <input type="text" class="form-control" name="balance" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter balance" required>
+
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
+
+                  <input type="text" class="form-control" name="role" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter role">
+
                   <input type="text" class="form-control" name="role" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter role" required>
+
                 </div>
                 <div class="form-actions text-center">
                     <button type="submit" class="btn btn-primary" name="action">Submit</button>
