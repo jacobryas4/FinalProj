@@ -38,10 +38,9 @@ class UserController {
     public function index() {
 
         //retrieve all accounts and store them in an array
-        $id->admin_model->list_account();
-        $transactions = $this->user_model->list_transactions();
+        $id->user_model->list_transactions();
         
-        if (!$transactions) {
+        if (!$id) {
             //display an error
             $message = "There was a problem with the display.";
             $this->error($message);
@@ -50,7 +49,7 @@ class UserController {
         
         // display all
         $view = new Index();
-        $view->display($id, $transactions);
+        $view->display($id);
     }
 
     //display the homepage

@@ -14,12 +14,15 @@ class Account {
     private $email;
     private $username;
     private $password;
+    private $balance;
 
-    public function __construct($account_id, $email, $username, $password) {
+    public function __construct($account_id, $email, $username, $balance, $password) {
         $this->account_id = $account_id;
         $this->email = $email;
         $this->username = $username;
+        $this->balance = $balance;
         $this->password = $password;
+        
     }
 
     //getter methods for retrieving attributes
@@ -37,6 +40,10 @@ class Account {
 
     public function getPassword() {
         return $this->password;
+    }
+    
+    public function getBalance() {
+        return $this->balance;
     }
 
     //setter for the id

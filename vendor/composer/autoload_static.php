@@ -21,6 +21,7 @@ class ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf
         'AdminIndexView' => __DIR__ . '/../..' . '/views/admin/admin_index_view.class.php',
         'AdminModel' => __DIR__ . '/../..' . '/models/admin_model.class.php',
         'AdminSearch' => __DIR__ . '/../..' . '/views/admin/search/admin_search.class.php',
+        'AdminUpdate' => __DIR__ . '/../..' . '/views/admin/update/admin_update.class.php',
         'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_static.php',

@@ -20,6 +20,7 @@ return array(
     'AdminIndexView' => $baseDir . '/views/admin/admin_index_view.class.php',
     'AdminModel' => $baseDir . '/models/admin_model.class.php',
     'AdminSearch' => $baseDir . '/views/admin/search/admin_search.class.php',
+    'AdminUpdate' => $baseDir . '/views/admin/update/admin_update.class.php',
     'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_static.php',

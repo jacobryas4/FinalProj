@@ -17,7 +17,7 @@ class Database {
         'password' => '',
         'database' => 'first_db',
         'tblAccounts' => 'account',
-        'tblTransaction' => 'transaction',
+        'tblTransactions' => 'transaction',
     );
  
     //define the database connection object
