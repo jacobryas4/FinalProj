@@ -24,6 +24,7 @@ return array(
     'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_static.php',
+    'Dashboard' => $baseDir . '/views/user/dashboard/user_dashboard.class.php',
     'Database' => $baseDir . '/application/database.class.php',
     'Dispatcher' => $baseDir . '/application/dispatcher.class.php',
     'Index' => $baseDir . '/views/user/dashboard/index.class.php',

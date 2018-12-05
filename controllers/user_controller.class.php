@@ -35,10 +35,10 @@ class UserController {
     }
     
         //display the login page
-    public function index() {
+    public function index($id) {
 
         //retrieve all accounts and store them in an array
-        $id->user_model->list_transactions();
+        $transactions = $this->user_model->list_transactions($id);
         
         if (!$id) {
             //display an error
@@ -49,7 +49,7 @@ class UserController {
         
         // display all
         $view = new Index();
-        $view->display($id);
+        $view->display($transactions);
     }
 
     //display the homepage

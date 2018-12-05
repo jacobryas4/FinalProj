@@ -25,6 +25,7 @@ class ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf
         'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_static.php',
+        'Dashboard' => __DIR__ . '/../..' . '/views/user/dashboard/user_dashboard.class.php',
         'Database' => __DIR__ . '/../..' . '/application/database.class.php',
         'Dispatcher' => __DIR__ . '/../..' . '/application/dispatcher.class.php',
         'Index' => __DIR__ . '/../..' . '/views/user/dashboard/index.class.php',

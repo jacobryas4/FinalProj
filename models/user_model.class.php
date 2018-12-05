@@ -139,7 +139,7 @@ Class UserModel {
 
 //        $sql = "SELECT * FROM " . $this->tblTransaction . "WHERE username='$username'";
         //the select ssql statement
-        $sql = "SELECT * " . "FROM " . $this->tblTransaction . " WHERE account_id=" . $id;
+        $sql = "SELECT * " . "FROM " . $this->tblTransactions . " WHERE account_id=" . $id;
         //execute the query
         $query = $this->dbConnection->query($sql);
 
@@ -149,7 +149,7 @@ Class UserModel {
         }
         //if the query succeeded, but no accounts were found.
         if ($query->num_rows == 0) {
-            return 0;
+            return "none";
         }
 
         //search succeeded, and found at least 1 account
@@ -161,7 +161,7 @@ Class UserModel {
             $transaction = new Transaction($obj->transaction_id, $obj->amount, $obj->transaction_type, $obj->date_of_transaction);
 
             //set the id for the account
-            $transaction->setTransaction_id($obj->Transaction_id);
+            //$transaction->setTransaction_id($obj->Transaction_id);
 
             //add the account into the array
             $transactions[] = $transaction;
