@@ -15,7 +15,7 @@ error_reporting(E_ALL);
 date_default_timezone_set('America/New_York');
 
 //base url of the application
-define("BASE_URL", "http://localhost/FinalProj-ryan-supJacob");
+define("BASE_URL", "http://localhost/FinalProj-Jacob");
 
 /*************************************************************************************
  *                       settings for the bank                                       *

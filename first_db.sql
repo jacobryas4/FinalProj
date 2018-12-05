@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2018 at 07:02 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: Nov 13, 2018 at 09:47 PM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,26 +32,48 @@ USE `first_db`;
 --
 
 DROP TABLE IF EXISTS `account`;
-CREATE TABLE IF NOT EXISTS `account` (
-  `account_id` int(13) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `account` (
+  `account_id` int(13) NOT NULL,
   `email` varchar(30) NOT NULL,
   `username` varchar(25) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `balance` float(11,2) NOT NULL,
-  `role` int(1) NOT NULL,
-  PRIMARY KEY (`account_id`),
-  UNIQUE KEY `email` (`email`,`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+  `password` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`account_id`, `email`, `username`, `password`, `balance`, `role`) VALUES
-(10, 'php@php.net', 'phpuser', '$2y$10$rpETPxUSPlzZDgOrdLQTA.xZ/PDOK7MB/9iT/ofATSpmUV8wS.S3W', 0.00, 2),
-(11, 'test@gmail.com', 'testboy', '$2y$10$XsPnNoS1InsA7aGBK0Ryiu3Ceb1kckE6UsWztJ87TzuSkdklrfM1.', 0.00, 1),
-(12, 'php@php.net', '12345', '$2y$10$Fm1sAC/OnE.fS7bUtA9oqO/KoFJGDtEWrURQjZvKV2iqYw55A1bZi', 0.00, 1),
-(13, 'test@testmail.com', 'testing', '$2y$10$HfoQ6OcQ6zOHcsb8bppARemR9YmmhdeOqwtkTZ/kZyNPyyBOL53W6', 0.00, 1);
+INSERT INTO `account` (`account_id`, `email`, `username`, `password`) VALUES
+(1, 'testboy@gmail.com', 'user', 'user'),
+(2, 'guy@gmail.com', 'user1', 'user'),
+(3, 'raynorhere@hotmail.com', 'James T Raynor', 'ThisIsJimmy'),
+(4, 'skerr@gmail.com', 'Sarah A Kerrigan', 'QueenOfBlades'),
+(5, 'amenethil@yahoo.com', 'Arthas L Menethil', 'PurgeThisAccount');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `balance`
+--
+
+DROP TABLE IF EXISTS `balance`;
+CREATE TABLE `balance` (
+  `balance_id` int(13) NOT NULL,
+  `account_id` int(13) NOT NULL,
+  `balance_total` decimal(11,2) NOT NULL,
+  `last_update` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `balance`
+--
+
+INSERT INTO `balance` (`balance_id`, `account_id`, `balance_total`, `last_update`) VALUES
+(1, 1, '35.55', '2018-11-09 18:38:08.119572'),
+(2, 2, '23.33', '2018-11-13 20:18:29.821419'),
+(4, 3, '500.00', '2018-11-13 20:21:25.476375'),
+(6, 4, '0.05', '2018-11-13 20:33:54.863520'),
+(7, 5, '1000000.00', '2018-11-13 20:34:13.965876');
 
 -- --------------------------------------------------------
 
@@ -60,32 +82,86 @@ INSERT INTO `account` (`account_id`, `email`, `username`, `password`, `balance`,
 --
 
 DROP TABLE IF EXISTS `transaction`;
-CREATE TABLE IF NOT EXISTS `transaction` (
-  `transaction_id` int(13) NOT NULL AUTO_INCREMENT,
-  `account_id` int(13) NOT NULL,
-  `amount` float(11,2) NOT NULL,
-  `transaction_type` tinyint(1) NOT NULL,
-  `date_of_transaction` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`transaction_id`),
-  KEY `FOREIGN KEY` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+CREATE TABLE `transaction` (
+  `transaction_id` int(13) NOT NULL,
+  `balance_id` int(13) NOT NULL,
+  `deposit` float(11,2) DEFAULT NULL,
+  `withdraw` float(11,2) DEFAULT NULL,
+  `date_of_transaction` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`transaction_id`, `account_id`, `amount`, `transaction_type`, `date_of_transaction`) VALUES
-(7, 10, 15.22, 1, '2018-11-29 17:14:23');
+INSERT INTO `transaction` (`transaction_id`, `balance_id`, `deposit`, `withdraw`, `date_of_transaction`) VALUES
+(1, 1, 55.55, NULL, '2018-11-10 22:16:04'),
+(2, 1, NULL, 20.00, '2018-11-13 20:28:20'),
+(3, 7, 1000000.00, NULL, '2018-11-13 20:36:00'),
+(4, 6, NULL, 99.95, '2018-11-13 20:36:58'),
+(5, 4, 500.00, NULL, '2018-11-13 20:37:35');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`account_id`);
+
+--
+-- Indexes for table `balance`
+--
+ALTER TABLE `balance`
+  ADD PRIMARY KEY (`balance_id`),
+  ADD UNIQUE KEY `account_id` (`account_id`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`transaction_id`),
+  ADD KEY `account_id` (`balance_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `account_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `balance`
+--
+ALTER TABLE `balance`
+  MODIFY `balance_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `transaction_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `balance`
+--
+ALTER TABLE `balance`
+  ADD CONSTRAINT `balance_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+
+--
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD CONSTRAINT `FOREIGN KEY` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`balance_id`) REFERENCES `balance` (`balance_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

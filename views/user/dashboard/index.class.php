@@ -1,13 +1,6 @@
 <?php
-/*
- * Ryan Byrd
- * 12/4/2018
- * index.class.php
- * displays the user's account and transactions
- */
 
 class Index extends IndexView {
-
     public function display($transactions) {
         parent::displayHeader("The Time Bank");
         ?>
@@ -30,22 +23,17 @@ class Index extends IndexView {
                     </tr>
                 </thead>
                 <tbody>
-
-
                     <?php
                     // foreach ($transactions as $transaction) {
                     //     echo "<tr>";
-
                     //     $account_id = $account->getAccount_Id();
                     //     $email = $account->getEmail();
                     //     $username = $account->getUsername();
                     //     $balance = $account->getBalance();
-
                     //     echo "<td>" . $account_id . "</td>";
                     //     echo "<td>" . $email . "</td>";
                     //     echo "<td>" . $username . "</td>";
                     //     echo "<td>" . $balance . "</td>";
-
                     //     echo "</tr>";
                     // }
                     ?>
@@ -66,20 +54,17 @@ class Index extends IndexView {
 
 
                     <?php
-                    //var_dump($transactions);
+                    
                     foreach ($transactions as $transaction) {
                         echo "<tr>";
-
                         $transaction_id = $transaction->getTransaction_Id();
                         $amount = $transaction->getAmount();
                         $transaction_type = $transaction->getTransaction_Type();
                         $date_of_transaction = $transaction->getDate_Of_Transaction();
-
                         echo "<td>" . $transaction_id . "</td>";
                         echo "<td>" . $amount . "</td>";
                         echo "<td>" . $transaction_type . "</td>";
                         echo "<td>" . $date_of_transaction . "</td>";
-
                         echo "</tr>";
                     }
                     ?>
@@ -91,5 +76,4 @@ class Index extends IndexView {
         <?php
         parent::displayFooter();
     }
-
 }

@@ -1,18 +1,14 @@
 <?php
-
-class Verify extends IndexView {
-    /*
-     * Author: Adam Patrick 
-     * Date: 10/29/18
-     * Name: verify_user.class.php
-     * Description: Display a message about whether the login succeeded or failed
-     */
-
+/*
+* Author: Adam Patrick
+* Date: 10/29/18
+* Name: verify_user.class.php
+* Description: Display a message about whether the login succeeded or failed
+*/
+class Verify extends UserIndexView {
     public function display($message) {
-
         //display page header
         parent::displayHeader("Time Bank Home");
-
         //if the login was successful display the corresponding message and links
         if ($message == true) {
    
@@ -29,8 +25,8 @@ class Verify extends IndexView {
                 <a href="<?= BASE_URL ?>/admin/index" class="btn btn-info" role="button">Dashboard</a>
                 <?php
             } elseif ($_COOKIE['role'] == 1) {
-                                echo "<a href=" . BASE_URL . "/user/index/$id class='btn btn-success' role='button'>Dashboard</a>";
-
+                $id = $_COOKIE['id'];
+                echo "<a href=" . BASE_URL . "/user/index/$id class='btn btn-success' role='button'>Dashboard</a>";
                 ?>  
             </div>
             <?php
@@ -48,5 +44,4 @@ class Verify extends IndexView {
             parent::displayFooter();
         }
     }
-
 }
