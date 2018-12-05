@@ -21,9 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `first_db`
 --
-DROP DATABASE IF EXISTS `first_db`;
-CREATE DATABASE IF NOT EXISTS `first_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `first_db`;
+DROP DATABASE IF EXISTS `first_db1`;
+CREATE DATABASE IF NOT EXISTS `first_db1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `first_db1`;
 
 -- --------------------------------------------------------
 

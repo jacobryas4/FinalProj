@@ -4,19 +4,39 @@
  * Ryan Byrd
  * 11/20/2018
  * user_model.class.php
- * PHP and SQL interactivity so that various user funnctions actually work
+ * PHP and SQL interactivity so that various user functions actually work
  */
 
 Class UserModel {
 
 // attributes for running SQL statements in PHP off of the MariaDB database
     private $db;
-    private $dbConnect;
+    static private $_instance = NULL;
 
 // constructor for calling up the database
     public function __construct() {
-        $this->db = Database::getInstance();
-        $this->dbConnect = $this->db->getConnection();
+        $this->db = Database::getDatabase();
+        $this->dbConnection = $this->db->getConnection();
+        $this->tblAccounts = $this->db->getUserTable();
+        $this->tblTransactions = $this->db->getTransactionTable();
+
+//        protect against SQL injection with a real_escape_string statement
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = $this->dbConnection->real_escape_string($value);
+        }
+
+        //protect against special characters being used in an SQL statement
+        foreach ($_GET as $key => $value) {
+            $_GET[$key] = $this->dbConnection->real_escape_string($value);
+        }
+    }
+
+    //static method to ensure there is just one AccountModel instance
+    public static function getUserModel() {
+        if (self::$_instance == NULL) {
+            self::$_instance = new UserModel();
+        }
+        return self::$_instance;
     }
 
 //add a user into the database
@@ -29,12 +49,14 @@ Class UserModel {
         $hash_pw = password_hash($pw, PASSWORD_DEFAULT);
 
 //retrieve all attributes from the user input form
+        $account_id = filter_input(INPUT_POST, "account_id", FILTER_SANITIZE_NUMBER_INT);
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $balance = filter_input(INPUT_POST, "balance", FILTER_SANITIZE_NUMBER_FLOAT);
+        $role = 1;
 
 //construct an INSERT query
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES(NULL, '$email', '$username', '$hash_pw', '$balance')";
+        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
 
 //execute the query and return true if successful or false if failed
         if ($this->dbConnection->query($sql) === TRUE) {
@@ -51,7 +73,7 @@ Class UserModel {
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
 //filter table data by username
-        $sql = "SELECT password FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+        $sql = "SELECT password, role, account_id FROM " . $this->db->getUserTable() . " WHERE username='$username'";
 
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
@@ -59,9 +81,30 @@ Class UserModel {
 //set a cookie if the password is verified
         if ($query AND $query->num_rows > 0) {
             $result_row = $query->fetch_assoc();
+
+            //retrieve the value of role from the row the user invoked
+            $role = $result_row['role'];
+
+            //retrieve the value of the user's unique account ID to call up data
+            $id = $result_row['account_id'];
+
+            //set a cookie to the role according to the user's name
+            setcookie("role", $role, 0, '/');
+
+            //assign the cookie to the variable role so that this information is immediately detected on the page.
+            $_COOKIE['role'] = $role;
+
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
-                setcookie("user", $username);
+                setcookie("username", $username, 0, '/');
+
+                //make the website display who is logged in from the header
+                $_COOKIE['username'] = $username;
+
+
+                setcookie("id", $id, 0, '/');
+                $_COOKIE['id'] = $id;
+                
                 return true;
             }
         }
@@ -72,35 +115,59 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
-        
-//the -10 is to destroy session cookie; the empty string eliminates user data
-        setcookie("user", '', -10);
+
+        //unset the username so the user may log out
+        $username = "username";
+        unset($_COOKIE[$username]);
+        $username = setcookie($username, '', time() - 3600, '/');
+
+        //unset the role so the user may log out
+        $role = "role";
+        unset($_COOKIE[$role]);
+        $role = setcookie($role, '', time() - 3600, '/');
+
+        $id = "id";
+        unset($_COOKIE[$id]);
+        $id = setcookie($id, '', time() - 3600, '/');
+
         return true;
     }
 
-//reset password
-    public function reset_password() {
-        
-//retrieve username and password from a form
-        $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-        $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+    //list all transactions
+    public function list_transactions($id) {
 
-//hash the password
-        $hash_pw = password_hash($pw, PASSWORD_DEFAULT);
 
-//the sql statement for update
-        $sql = "UPDATE  " . $this->db->getUserTable() . " SET password='$hash_pw' WHERE username='$username'";
-
-//execute the query
+//        $sql = "SELECT * FROM " . $this->tblTransaction . "WHERE username='$username'";
+        //the select ssql statement
+        $sql = "SELECT * " . "FROM " . $this->tblTransactions . " WHERE account_id=" . $id;
+        //execute the query
         $query = $this->dbConnection->query($sql);
 
-//return false if no rows were affected
-        if (!$query || $this->dbConnection->affected_rows == 0) {
-
+        // if the query failed, return false. 
+        if (!$query) {
             return false;
         }
+        //if the query succeeded, but no accounts were found.
+        if ($query->num_rows == 0) {
+            return "none";
+        }
 
-        return true;
+        //search succeeded, and found at least 1 account
+        //create an array to store all the returned accounts
+        $transactions = array();
+
+        //loop through all rows in the returned recordsets
+        while ($obj = $query->fetch_object()) {
+            $transaction = new Transaction($obj->transaction_id, $obj->amount, $obj->transaction_type, $obj->date_of_transaction);
+
+            //set the id for the account
+            //$transaction->setTransaction_id($obj->Transaction_id);
+
+            //add the account into the array
+            $transactions[] = $transaction;
+        }
+
+        return $transactions;
     }
 
 }
