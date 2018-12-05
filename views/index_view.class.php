@@ -66,6 +66,7 @@ class IndexView {
                         <div class="footer-center"><p> The Time Bank 2018</p></div>
 
                     </div>
+                <script src="<?= BASE_URL ?>/www/js/autosuggest.js" type="text/javascript"></script>
                 
             </body>
         </html>

@@ -63,8 +63,22 @@ class AdminController {
         $search = new AdminSearch();
         $search->display($query_terms, $accounts);
         
+    }  
+    
+    public function suggest($terms) {
+        // retrieve terms
+        $query_terms = urldecode(trim($terms));
+        $accounts = $this->admin_model->search_account($query_terms);
         
-    }   
+        // create array of accounts
+        $names = array();
+        if ($accounts) {
+            foreach($accounts as $account) {
+                $names[] = $account->getUsername(); 
+            }
+        }
+        echo json_encode($names);
+    }
     
     // error handling
     public function error($message) {
@@ -155,5 +169,7 @@ class AdminController {
         $view->display($accounts);
         
     }
+    
+    
     
 }
