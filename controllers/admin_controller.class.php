@@ -114,4 +114,46 @@ class AdminController {
         
     }
     
+    // present form to update account
+    public function update($id) {
+        
+        //retrieve all accounts and store them in an array
+        $account = $this->admin_model->view_account($id);
+        
+        
+        if (!$account) {
+            //display an error
+            $message = "There was a problem displaying the accounts.";
+            $this->error($message);
+            return;
+        }
+        
+        // display all
+        $view = new AdminUpdate();
+        $view->display($account);
+        
+    }
+    
+    // actually update account info in the database
+    public function updateAccount($id) {
+        
+        // update the account
+        $update = $this->admin_model->update_account($id);
+        var_dump($update);
+        if (!$update) {
+            // error handling
+            $message = "There was a problem updating account id=" . $id;
+            $this->error($message);
+            return;
+        }
+        
+        //retrieve all accounts and store them in an array
+        $accounts = $this->admin_model->list_account();
+        
+        // display results
+        $view = new AdminIndex();
+        $view->display($accounts);
+        
+    }
+    
 }

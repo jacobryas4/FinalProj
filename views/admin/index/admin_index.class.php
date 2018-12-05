@@ -23,7 +23,7 @@ class AdminIndex extends AdminIndexView {
                     </div>-->
                     
                         <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" name="query-terms" class="form-control" id="inputPassword2" placeholder="username">
+                            <input type="text" name="query-terms" class="form-control" id="inputPassword2" placeholder="username" required>
                         </div>
                         <button type="submit" class="btn btn-dark mb-2">Search</button>
                     
@@ -44,6 +44,7 @@ class AdminIndex extends AdminIndexView {
                     <th scope="col">Email</th>
                     <th scope="col">Username</th>
                     <th scope="col">Balance</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,7 @@ class AdminIndex extends AdminIndexView {
                 echo "<td>" . $email . "</td>";
                 echo "<td>" . $username . "</td>";
                 echo "<td>" . $balance . "</td>";
+                echo "<td><a href=" . BASE_URL . "/admin/update/$account_id>Update</a>";
                 
                 echo "</tr>"; 
                 $balanceTotal+= $balance;

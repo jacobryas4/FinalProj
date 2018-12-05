@@ -21,6 +21,7 @@ class ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf
         'AdminIndexView' => __DIR__ . '/../..' . '/views/admin/admin_index_view.class.php',
         'AdminModel' => __DIR__ . '/../..' . '/models/admin_model.class.php',
         'AdminSearch' => __DIR__ . '/../..' . '/views/admin/search/admin_search.class.php',
+        'AdminUpdate' => __DIR__ . '/../..' . '/views/admin/update/admin_update.class.php',
         'Balance' => __DIR__ . '/../..' . '/models/balance.class.php',
         'BalanceModel' => __DIR__ . '/../..' . '/models/balance_model.class.php',
         'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => __DIR__ . '/..' . '/composer/autoload_real.php',
