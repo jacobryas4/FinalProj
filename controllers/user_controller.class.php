@@ -37,15 +37,20 @@ class UserController {
         //display the login page
     public function index() {
 
-        //display index
+        //retrieve all accounts and store them in an array
+        $id->admin_model->list_account();
+        $transactions = $this->user_model->list_transactions();
+        
+        if (!$transactions) {
+            //display an error
+            $message = "There was a problem with the display.";
+            $this->error($message);
+            return;
+        }
+        
+        // display all
         $view = new Index();
-        $view->display();
-    }
-
-    //display the dashboard
-    public function dashboard($account, $transactions) {
-        $view = new Dashboard($account, $transactions);
-        $view->display($account, $transactions);
+        $view->display($id, $transactions);
     }
 
     //display the homepage

@@ -88,10 +88,10 @@ Class UserModel {
 
             //set a cookie to the role according to the user's name
             setcookie("role", $role, 0, '/');
-            
+
             //assign the cookie to the variable role so that this information is immediately detected on the page.
             $_COOKIE['role'] = $role;
-            
+
             $hash = $result_row['password'];
             if (password_verify($pw, $hash)) {
                 setcookie("username", $username, 0, '/');
@@ -108,7 +108,7 @@ Class UserModel {
 
 //timeout the user's cookie when they press the logout button
     public function logout() {
-        
+
         //unset the username so the user may log out
         $username = "username";
         unset($_COOKIE[$username]);
@@ -118,8 +118,43 @@ Class UserModel {
         $role = "role";
         unset($_COOKIE[$role]);
         $role = setcookie($role, '', time() - 3600, '/');
-        
+
         return true;
     }
 
+    //list all transactions
+    public function list_transactions() {
+        
+        
+        $sql = "SELECT * FROM " . $this->tblTransaction . "WHERE username='$username'";
+       
+        //execute the query
+        $query = $this->dbConnection->query($sql);
+
+        // if the query failed, return false. 
+        if (!$query) {
+            return false;
+        }
+        //if the query succeeded, but no accounts were found.
+        if ($query->num_rows == 0) {
+            return 0;
+        }
+        
+        //search succeeded, and found at least 1 account
+        //create an array to store all the returned accounts
+        $transactions = array();
+        
+        //loop through all rows in the returned recordsets
+        while ($obj = $query->fetch_object()) {
+            $transaction = new Transaction($obj->transaction_id, $obj->amount, $obj->transaction_type, $obj->date_of_transaction);
+
+            //set the id for the account
+            $transaction->setTransaction_id($obj->Transaction_id);
+
+            //add the account into the array
+            $transactions[] = $transaction;
+        }
+        
+        return $transactions;
+    }
 }
