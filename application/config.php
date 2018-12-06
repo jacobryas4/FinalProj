@@ -9,7 +9,7 @@
  */
 
 //error reporting level: 0 to turn off all error reporting; E_ALL to report all
-error_reporting(0);
+error_reporting(1);
 
 //local time zone
 date_default_timezone_set('America/New_York');
