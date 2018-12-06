@@ -13,12 +13,14 @@ class Transaction {
     private $amount;
     private $transaction_type;
     private $date_of_transaction;
+    private $recipient;
 
-    public function __construct($transaction_id, $amount, $transaction_type, $date_of_transaction) {
+    public function __construct($transaction_id, $amount, $transaction_type, $date_of_transaction, $recipient) {
         $this->transaction_id = $transaction_id;
         $this->amount = $amount;
         $this->transaction_type = $transaction_type;
         $this->date_of_transaction = $date_of_transaction;
+        $this->recipient = $recipient;
     }
 
     public function getTransaction_id() {
@@ -35,6 +37,10 @@ class Transaction {
 
     public function getDate_of_transaction() {
         return $this->date_of_transaction;
+    }
+
+    public function getRecipient(){
+        return $this->recipient;
     }
 
 }

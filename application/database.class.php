@@ -13,11 +13,11 @@ class Database {
     //define database parameters
     private $param = array(
         'host' => 'localhost',
-        'login' => 'phpuser',
-        'password' => 'phpuser',
+        'login' => 'root',
+        'password' => '',
         'database' => 'first_db1',
         'tblAccounts' => 'account',
-        'tblTransactions' => 'transaction',
+        'tblTransaction' => 'transaction',
     );
  
     //define the database connection object
@@ -52,14 +52,10 @@ class Database {
     public function getAccountTable() {
         return $this->param['tblAccounts'];
     }
-    //returns the name of the table that stores accounts
-    public function getUserTable() {
-        return $this->param['tblAccounts'];
-    }
 
-    //returns the name of the table that stores user transactions
+    //returns the name of the table that stores user balances
     public function getTransactionTable() {
-        return $this->param['tblTransactions'];
+        return $this->param['tblTransaction'];
     }
 
 }

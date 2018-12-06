@@ -63,8 +63,22 @@ class AdminController {
         $search = new AdminSearch();
         $search->display($query_terms, $accounts);
         
+    }  
+    
+    public function suggest($terms) {
+        // retrieve terms
+        $query_terms = urldecode(trim($terms));
+        $accounts = $this->admin_model->search_account($query_terms);
         
-    }   
+        // create array of accounts
+        $names = array();
+        if ($accounts) {
+            foreach($accounts as $account) {
+                $names[] = $account->getUsername(); 
+            }
+        }
+        echo json_encode($names);
+    }
     
     // error handling
     public function error($message) {
@@ -139,7 +153,7 @@ class AdminController {
         
         // update the account
         $update = $this->admin_model->update_account($id);
-        var_dump($update);
+        
         if (!$update) {
             // error handling
             $message = "There was a problem updating account id=" . $id;
@@ -155,5 +169,7 @@ class AdminController {
         $view->display($accounts);
         
     }
+    
+    
     
 }
