@@ -22,7 +22,7 @@ class UserRegister extends IndexView {
                 <label for="username">Username:</label>
                 <input type="text" class="form-control col-3" name="username" placeholder="Username">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control col-3" name="password" placeholder="Password, 5 characters minimum">
+                <input type="password" class="form-control col-3" name="password" placeholder="Password">
                 <label for="email">Email:</label>
                 <input type="email" class="form-control col-3" name="email" placeholder="Email"><br/>
                 <input type="submit" class="btn btn-info" name="submit" placeholder="Register">

@@ -19,8 +19,8 @@ class UserError extends IndexView {
         <div id="main-header">
 
             <!--display an error on the page without breaking the application -->
-            <h4>Sorry, something went wrong with creating your account.</h4>
-            <p>Try a different username or email.</p>
+            <h4>Sorry, something went wrong.</h4>
+            <p>Try something else.</p>
         </div>
         <?php
         parent::displayFooter();

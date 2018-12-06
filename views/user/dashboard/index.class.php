@@ -25,6 +25,7 @@ class Index extends IndexView {
                 <thead>
                     <tr>
                         <th scope="col">Transaction ID</th>
+                        <th scope="col">Recipient</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Transaction Type</th>
                         <th scope="col">Date of Transaction</th>
@@ -36,17 +37,18 @@ class Index extends IndexView {
 
 
                     <?php
-                    //var_dump($transactions);
-
+                    //Output data from the transactions table in a foreach loop
                     foreach ($transactions as $transaction) {
                         echo "<tr>";
 
                         $transaction_id = $transaction->getTransaction_Id();
+                        $recipient = $recipient->getRecipient();
                         $amount = $transaction->getAmount();
                         $transaction_type = $transaction->getTransaction_Type();
                         $date_of_transaction = $transaction->getDate_Of_Transaction();
 
                         echo "<td>" . $transaction_id . "</td>";
+                        echo "<td>" . $recipient . "</td>";
                         echo "<td>" . $amount . "</td>";
                         echo "<td>" . $transaction_type . "</td>";
                         echo "<td>" . $date_of_transaction . "</td>";

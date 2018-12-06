@@ -1,42 +1,31 @@
 <?php
 
 /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
  * Ryan Byrd
  * 11/20/2018
  * user_model.class.php
- * PHP and SQL interactivity so that various user functions actually work
+ * PHP and SQL interactivity so that various user funnctions actually work
  */
 
 Class UserModel {
 
 // attributes for running SQL statements in PHP off of the MariaDB database
     private $db;
-    static private $_instance = NULL;
+//    private $dbConnect;
 
 // constructor for calling up the database
     public function __construct() {
         $this->db = Database::getDatabase();
         $this->dbConnection = $this->db->getConnection();
-        $this->tblAccounts = $this->db->getUserTable();
+        $this->tblAccount = $this->db->getAccountTable();
         $this->tblTransactions = $this->db->getTransactionTable();
 
-//        protect against SQL injection with a real_escape_string statement
-        foreach ($_POST as $key => $value) {
-            $_POST[$key] = $this->dbConnection->real_escape_string($value);
-        }
-
-        //protect against special characters being used in an SQL statement
-        foreach ($_GET as $key => $value) {
-            $_GET[$key] = $this->dbConnection->real_escape_string($value);
-        }
-    }
-
-    //static method to ensure there is just one AccountModel instance
-    public static function getUserModel() {
-        if (self::$_instance == NULL) {
-            self::$_instance = new UserModel();
-        }
-        return self::$_instance;
     }
 
 //add a user into the database
@@ -56,7 +45,7 @@ Class UserModel {
         $role = 1;
 
 //construct an INSERT query
-        $sql = "INSERT INTO " . $this->db->getUserTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
+        $sql = "INSERT INTO " . $this->db->getAccountTable() . " VALUES('$account_id', '$email', '$username', '$hash_pw', '$balance', '$role')";
 
 //execute the query and return true if successful or false if failed
         if ($this->dbConnection->query($sql) === TRUE) {
@@ -73,7 +62,7 @@ Class UserModel {
         $pw = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
 //filter table data by username
-        $sql = "SELECT password, role, account_id FROM " . $this->db->getUserTable() . " WHERE username='$username'";
+        $sql = "SELECT password, role, account_id FROM " . $this->db->getAccountTable() . " WHERE username='$username'";
 
 //Run SQL statement
         $query = $this->dbConnection->query($sql);
@@ -136,37 +125,28 @@ Class UserModel {
 
     //list all transactions
     public function list_transactions($id) {
-
-
-        //the select ssql statement
+        //the select sql statement
         $sql = "SELECT * " . "FROM " . $this->tblTransactions . " WHERE account_id=" . $id;
-
         //execute the query
         $query = $this->dbConnection->query($sql);
-
         // if the query failed, return false. 
         if (!$query) {
             return false;
         }
-        //if the query succeeded, but no accounts were found.
+        //if the query succeeded, but no transactions were found.
         if ($query->num_rows == 0) {
-            return "No transactions to display.";
+
+            return "No transactions to display";
         }
-
-        //search succeeded, and found at least 1 account
-        //create an array to store all the returned accounts
+        //search succeeded, and found at least 1 transaction
+        //create an array to store all the returned transactions
         $transactions = array();
-
         //loop through all rows in the returned recordsets
         while ($obj = $query->fetch_object()) {
-            $transaction = new Transaction($obj->transaction_id, $obj->amount, $obj->transaction_type, $obj->date_of_transaction);
-
-            //set the id for the account
-            //$transaction->setTransaction_id($obj->Transaction_id);
+            $transaction = new Transaction($obj->transaction_id, $obj->recipient, $obj->amount, $obj->transaction_type, $obj->date_of_transaction);
             //add the transaction into the array
             $transactions[] = $transaction;
         }
-
         return $transactions;
     }
 

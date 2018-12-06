@@ -7,10 +7,10 @@
  */
 
 class IndexView {
-
+    
 //create the page header
     public static function displayHeader($page_title) {
-        
+    
         ?>
         <!DOCTYPE html>
         <html>
