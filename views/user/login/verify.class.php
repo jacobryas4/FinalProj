@@ -16,7 +16,7 @@ class Verify extends UserIndexView {
             
         }
         ?>
-        <div id="main-header">
+        <div class="jumbotron">
             <p>You have successfully logged in.</p>
             <?php
             //hide features from users who are not logged in as admin
@@ -28,12 +28,12 @@ class Verify extends UserIndexView {
                 $id = $_COOKIE['id'];
                 echo "<a href=" . BASE_URL . "/user/index/$id class='btn btn-success' role='button'>Dashboard</a>";
                 ?>  
-            </div>
+        </div>
             <?php
             //if the login was unsuccessful display the corresponding message and links
         } else {
             ?>
-            <div id="main-header">
+            <div class="jumbotron">
 
                 <p>Your last attempt to login failed. Please try again.</p>
 

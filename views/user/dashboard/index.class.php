@@ -9,10 +9,11 @@ class Index extends IndexView {
             <br/>
             <form class="form-inline" action="<?= BASE_URL ?>/user/search">
 
-                <input type="text" name="query-terms" class="form-control" id="inputPassword2" placeholder="Search Transactions">
+                <input type="text" name="query-terms" class="form-control" placeholder="Search Transactions" onkeyup="handleKeyUp(event)" id="searchBoxuser" required>
                 <button type="submit" class="btn btn-info">Search</button>
 
             </form>
+            <div id="suggestionDivuser"></div>
             <!-- <table class="table table-striped bg-light">
                 <thead>
                     <tr>
@@ -39,6 +40,7 @@ class Index extends IndexView {
                     ?>
                 </tbody>
             </table> -->
+            
             <table class="table table-striped bg-light">
                 <thead>
                     <tr>
@@ -63,6 +65,7 @@ class Index extends IndexView {
                         $transaction_type = $transaction->getTransaction_Type();
                         $date_of_transaction = $transaction->getDate_Of_Transaction();
                         $recipient = $transaction->getRecipient();
+                        
                         echo "<td>" . $transaction_id . "</td>";
                         echo "<td>" . $amount . "</td>";
                         echo "<td>" . $transaction_type . "</td>";
@@ -73,9 +76,12 @@ class Index extends IndexView {
                     ?>
                 </tbody>
             </table>
+
+            
         </div>
 
-
+        <script src="<?= BASE_URL ?>/www/js/userAutoSuggest.js" type="text/javascript"></script>
+        
         <?php
         parent::displayFooter();
     }

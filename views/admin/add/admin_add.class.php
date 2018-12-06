@@ -69,7 +69,7 @@ class AdminAdd extends AdminIndexView {
                 
                 <div class="form-group">
 
-                  <input type="text" class="form-control" name="role" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter role">
+                  <input type="text" class="form-control" name="role" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter role" value="1" readonly>
 
 
                 </div>

@@ -71,7 +71,7 @@ class UserSearch extends UserIndexView {
         </div>
 </div>
         <a href="<?= BASE_URL ?>/user/index/<?=$_COOKIE['id'] ?>">Back to dashboard</a>
-        <script src="<?= BASE_URL ?>/www/js/autosuggest.js" type="text/javascript"></script>
+        <script src="<?= BASE_URL ?>/www/js/userAutoSuggest.js" type="text/javascript"></script>
         <?php
         // display footer
         parent::displayFooter();

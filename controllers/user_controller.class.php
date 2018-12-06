@@ -173,6 +173,21 @@ class UserController {
         
     } 
 
+    public function suggest($terms) {
+        // retrieve terms
+        $query_terms = urldecode(trim($terms));
+        $transactions = $this->user_model->search_transaction($query_terms);
+        
+        // create array of accounts
+        $names = array();
+        if ($transactions) {
+            foreach($transactions as $transaction) {
+                $names[] = $transaction->getRecipient(); 
+            }
+        }
+        echo json_encode($names);
+    }
+
     //display an error message
     public function error($message) {
         $view = new UserError();
