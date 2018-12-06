@@ -215,9 +215,10 @@ class AdminModel {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 throw new EmailException("Your email format was invalid");
             }
-            
+
+            //hash the password from the admin view
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            echo $hashed_password;
+
             //query string for update 
             $sql = "UPDATE " . $this->tblAccount .
                     " SET email='$email', username='$username', password='$hashed_password', balance='$balance'"
