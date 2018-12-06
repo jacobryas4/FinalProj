@@ -153,7 +153,7 @@ class AdminController {
         
         // update the account
         $update = $this->admin_model->update_account($id);
-        var_dump($update);
+        
         if (!$update) {
             // error handling
             $message = "There was a problem updating account id=" . $id;

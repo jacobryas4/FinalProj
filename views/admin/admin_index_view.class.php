@@ -28,6 +28,7 @@ class AdminIndexView extends IndexView {
             <div class="col-4"></div>
 
         </div>-->
+        <script src="<?= BASE_URL ?>/www/js/autosuggest.js" type="text/javascript"></script>
         <?php
     }
     

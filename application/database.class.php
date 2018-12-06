@@ -15,7 +15,7 @@ class Database {
         'host' => 'localhost',
         'login' => 'phpuser',
         'password' => 'phpuser',
-        'database' => 'first_db',
+        'database' => 'first_db1',
         'tblAccounts' => 'account',
         'tblTransaction' => 'transaction',
     );

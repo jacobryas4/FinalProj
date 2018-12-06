@@ -206,7 +206,7 @@ class AdminModel {
                 
                 return $this->dbConnection->query($sql);
             } else {
-                var_dump($sql);
+                
                 throw new DatabaseException("Couldnt access the database or bad statement");
             }
         } catch (DatabaseException $e) {
@@ -263,21 +263,7 @@ class AdminModel {
         } else if (sizeof($terms === 3)) {
             $sql .= "'%$terms[0]%' OR username LIKE '%$terms[1]%' OR username LIKE '%$terms[2]%'";
         }   
-        
-//        // add terms to sql statement if necessary
-//        if (sizeof($terms) === 1) {
-//            $sql .= "LIKE " . "'%" . $terms[0] . "%'";
-//        } else {
-//            foreach($terms as $term) {
-//                $sql .= "REGEXP%" . $term . "%" . "' OR username LIKE '" . $term . "'";
-//            }
-//        }
-            
-       
-        
-        
-        
-        
+  
         // execute query
         $query = $this->dbConnection->query($sql);
        
@@ -366,10 +352,7 @@ class AdminModel {
             //construct INSERT query
             $sql = "INSERT INTO " . $this->tblAccount . " (email, username, password, balance, role) VALUES ('" .
                     $email . "', '" . $username . "', '" . $hashed_password . "', '" . $balance . "', '" . $role . "');";
-            //check for valid DB connection
-            if ($this->dbConnection->query($sql) === FALSE) {
-                throw new DatabaseException("We cannot create your account at the moment.");
-            }
+            
             // execute query
             return $this->dbConnection->query($sql);
         } catch (DataMissingException $e) {

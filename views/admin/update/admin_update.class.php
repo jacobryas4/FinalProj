@@ -84,7 +84,7 @@ class AdminUpdate extends AdminIndexView {
              </div>
          </div>
      </div>
-
+     <script src="<?= BASE_URL ?>/www/js/autosuggest.js" type="text/javascript"></script>
     <?php
     parent::displayFooter();
         
