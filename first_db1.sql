@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2018 at 01:34 AM
+-- Generation Time: Dec 06, 2018 at 03:06 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -44,13 +44,13 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`account_id`, `email`, `username`, `password`, `balance`, `role`) VALUES
-(10, 'php@php.net', 'phpuser', '$2y$10$rpETPxUSPlzZDgOrdLQTA.xZ/PDOK7MB/9iT/ofATSpmUV8wS.S3W', 0.00, 2),
-(11, 'test@gmail.com', 'testboy', '$2y$10$XsPnNoS1InsA7aGBK0Ryiu3Ceb1kckE6UsWztJ87TzuSkdklrfM1.', 0.00, 1),
-(12, 'php@php.net', '12345', '$2y$10$Fm1sAC/OnE.fS7bUtA9oqO/KoFJGDtEWrURQjZvKV2iqYw55A1bZi', 0.00, 1),
-(13, 'test@testmail.com', 'testing', '$2y$10$HfoQ6OcQ6zOHcsb8bppARemR9YmmhdeOqwtkTZ/kZyNPyyBOL53W6', 0.00, 1),
-(24, 'user@mail.com', 'user', '$2y$10$Ftn6FDWTqy92AcsOyLxd7O0FuNfeKAE8I3JneHCSVKILWpRFpF15q', 0.00, 1),
-(25, 'user1@gmail.com', 'user1', '$2y$10$KoOUTfRXq98GSifxuKdfP.GSjADZdiYCHiCNaeCTBZqN1N39yn/l.', 0.00, 1),
-(26, '1234@gmail.com', '1234', '$2y$10$beHvd6NIROn7iu.EQv7LrupF1XksCoyfgufyjiKF6w8BkJDWL699.', 0.00, 1);
+(10, 'php@php.net', 'phpuser', '$2y$10$rpETPxUSPlzZDgOrdLQTA.xZ/PDOK7MB/9iT/ofATSpmUV8wS.S3W', 15.22, 2),
+(11, 'test@gmail.com', 'testboy', '$2y$10$XsPnNoS1InsA7aGBK0Ryiu3Ceb1kckE6UsWztJ87TzuSkdklrfM1.', 24.00, 1),
+(12, 'php@php.net', '12345', '$2y$10$Fm1sAC/OnE.fS7bUtA9oqO/KoFJGDtEWrURQjZvKV2iqYw55A1bZi', 150.00, 1),
+(13, 'test@testmail.com', 'testing', '$2y$10$HfoQ6OcQ6zOHcsb8bppARemR9YmmhdeOqwtkTZ/kZyNPyyBOL53W6', 55.22, 1),
+(24, 'user@mail.com', 'user', '$2y$10$Ftn6FDWTqy92AcsOyLxd7O0FuNfeKAE8I3JneHCSVKILWpRFpF15q', 1000000.00, 1),
+(25, 'user1@gmail.com', 'user1', '$2y$10$KoOUTfRXq98GSifxuKdfP.GSjADZdiYCHiCNaeCTBZqN1N39yn/l.', 35.00, 1),
+(26, '1234@gmail.com', '1234', '$2y$10$beHvd6NIROn7iu.EQv7LrupF1XksCoyfgufyjiKF6w8BkJDWL699.', 15.33, 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,16 @@ CREATE TABLE `transaction` (
 
 INSERT INTO `transaction` (`transaction_id`, `account_id`, `recipient`, `amount`, `transaction_type`, `date_of_transaction`) VALUES
 (7, 10, 'phpuser', 15.22, 'Deposit', '2018-12-06 00:15:38'),
-(8, 24, 'user', 24.00, 'Deposit', '2018-12-06 00:15:43');
+(8, 24, 'user', 24.00, 'Deposit', '2018-12-06 00:15:43'),
+(9, 11, 'Wal-Mart', 200.00, 'Withdraw', '2018-12-06 01:59:10'),
+(10, 12, '12345', 200.00, 'Deposit', '2018-12-06 01:59:56'),
+(11, 13, 'testing', 150.00, 'Deposit', '2018-12-06 02:00:24'),
+(12, 24, 'user', 1000.00, 'Deposit', '2018-12-06 02:01:13'),
+(13, 24, 'user', 500.00, 'Deposit', '2018-12-06 02:01:45'),
+(14, 25, 'userr1', 50.00, 'Deposit', '2018-12-06 02:02:03'),
+(15, 25, 'userr1', 50.00, 'Deposit', '2018-12-06 02:02:03'),
+(16, 26, 'McDonalds', 5000.00, 'Withdraw', '2018-12-06 02:02:50'),
+(17, 24, 'user', 27.00, 'Deposit', '2018-12-06 02:04:20');
 
 --
 -- Indexes for dumped tables
@@ -107,7 +116,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `transaction_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- Constraints for dumped tables
 --
