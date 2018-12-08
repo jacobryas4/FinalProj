@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Dec 06, 2018 at 05:42 PM
+-- Host: 127.0.0.1
+-- Generation Time: Dec 08, 2018 at 07:41 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -19,6 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `first_db1`
 --
+DROP DATABASE `first_db1`;
+CREATE DATABASE IF NOT EXISTS `first_db1` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `first_db1`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +29,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `account`
 --
 
+DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
   `account_id` int(13) NOT NULL,
   `email` varchar(30) NOT NULL,
@@ -41,13 +45,12 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`account_id`, `email`, `username`, `password`, `balance`, `role`) VALUES
 (10, 'php@php.net', 'phpuser', '$2y$10$rpETPxUSPlzZDgOrdLQTA.xZ/PDOK7MB/9iT/ofATSpmUV8wS.S3W', 15.22, 2),
-(11, 'tester@gmail.com', 'testboy2', '$2y$10$XsPnNoS1InsA7aGBK0Ryiu3Ceb1kckE6UsWztJ87TzuSkdklrfM1.', 50.25, 1),
+(11, 'test@gmail.com', 'testboy', '$2y$10$XsPnNoS1InsA7aGBK0Ryiu3Ceb1kckE6UsWztJ87TzuSkdklrfM1.', 24.00, 1),
 (12, 'php@php.net', '12345', '$2y$10$Fm1sAC/OnE.fS7bUtA9oqO/KoFJGDtEWrURQjZvKV2iqYw55A1bZi', 150.00, 1),
 (13, 'test@testmail.com', 'testing', '$2y$10$HfoQ6OcQ6zOHcsb8bppARemR9YmmhdeOqwtkTZ/kZyNPyyBOL53W6', 55.22, 1),
 (24, 'user@mail.com', 'user', '$2y$10$Ftn6FDWTqy92AcsOyLxd7O0FuNfeKAE8I3JneHCSVKILWpRFpF15q', 1000000.00, 1),
 (25, 'user1@gmail.com', 'user1', '$2y$10$KoOUTfRXq98GSifxuKdfP.GSjADZdiYCHiCNaeCTBZqN1N39yn/l.', 35.00, 1),
-(26, '1234@gmail.com', '1234', '$2y$10$beHvd6NIROn7iu.EQv7LrupF1XksCoyfgufyjiKF6w8BkJDWL699.', 15.33, 1),
-(27, 'newONe@yahoo.com', 'newOne', '$2y$10$m17tOiAaYGLc7SYleoBk4ORgxvE.rrI1I/A0R9YYlfV4vAGOVL8yi', 0.00, 1);
+(26, '1234@gmail.com', '1234', '$2y$10$beHvd6NIROn7iu.EQv7LrupF1XksCoyfgufyjiKF6w8BkJDWL699.', 15.33, 1);
 
 -- --------------------------------------------------------
 
@@ -55,6 +58,7 @@ INSERT INTO `account` (`account_id`, `email`, `username`, `password`, `balance`,
 -- Table structure for table `transaction`
 --
 
+DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `transaction_id` int(13) NOT NULL,
   `account_id` int(13) NOT NULL,
@@ -74,12 +78,12 @@ INSERT INTO `transaction` (`transaction_id`, `account_id`, `recipient`, `amount`
 (9, 11, 'Wal-Mart', 200.00, 'Withdraw', '2018-12-06 01:59:10'),
 (10, 12, '12345', 200.00, 'Deposit', '2018-12-06 01:59:56'),
 (11, 13, 'testing', 150.00, 'Deposit', '2018-12-06 02:00:24'),
-(12, 24, 'Target', 1000.00, 'Deposit', '2018-12-06 14:54:00'),
-(13, 24, 'McDonalds', 500.00, 'Withdraw', '2018-12-06 14:53:31'),
+(12, 24, 'user', 1000.00, 'Deposit', '2018-12-06 02:01:13'),
+(13, 24, 'user', 500.00, 'Deposit', '2018-12-06 02:01:45'),
 (14, 25, 'userr1', 50.00, 'Deposit', '2018-12-06 02:02:03'),
 (15, 25, 'userr1', 50.00, 'Deposit', '2018-12-06 02:02:03'),
 (16, 26, 'McDonalds', 5000.00, 'Withdraw', '2018-12-06 02:02:50'),
-(17, 24, 'Kroger', 27.00, 'Deposit', '2018-12-06 14:54:08');
+(17, 24, 'user', 27.00, 'Deposit', '2018-12-06 02:04:20');
 
 --
 -- Indexes for dumped tables
@@ -107,7 +111,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `account_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `account_id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `transaction`
 --
