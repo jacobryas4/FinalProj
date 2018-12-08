@@ -5,6 +5,19 @@
  * index.php
  * The homepage
  */
+
+
+
+//
+//ADMIN LOGIN:
+//Username: phpuser
+//Password: phpuser
+//
+//USER LOGIN:
+//Username: user
+//Passowrd: user
+//
+
 //load application settings
 require_once ("application/config.php");
 
