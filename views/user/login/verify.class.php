@@ -1,0 +1,47 @@
+<?php
+/*
+* Author: Adam Patrick
+* Date: 10/29/18
+* Name: verify_user.class.php
+* Description: Display a message about whether the login succeeded or failed
+*/
+class Verify extends UserIndexView {
+    public function display($message) {
+        //display page header
+        parent::displayHeader("Time Bank Home");
+        //if the login was successful display the corresponding message and links
+        if ($message == true) {
+   
+            $id = $_COOKIE['id'];
+            
+        }
+        ?>
+        <div class="jumbotron">
+            <p>You have successfully logged in.</p>
+            <?php
+            //hide features from users who are not logged in as admin
+            if ($_COOKIE['role'] == 2) {
+                ?>
+                <a href="<?= BASE_URL ?>/admin/index" class="btn btn-info" role="button">Dashboard</a>
+                <?php
+            } elseif ($_COOKIE['role'] == 1) {
+                $id = $_COOKIE['id'];
+                echo "<a href=" . BASE_URL . "/user/index/$id class='btn btn-success' role='button'>Dashboard</a>";
+                ?>  
+        </div>
+            <?php
+            //if the login was unsuccessful display the corresponding message and links
+        } else {
+            ?>
+            <div class="jumbotron">
+
+                <p>Your last attempt to login failed. Please try again.</p>
+
+                <span style="float: left">Already have an account? <a href="<?= BASE_URL ?>/user/login">Login</a></span>
+            </div>
+
+            <?php
+            parent::displayFooter();
+        }
+    }
+}

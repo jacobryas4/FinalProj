@@ -23,9 +23,7 @@ return array(
     'AdminUpdate' => $baseDir . '/views/admin/update/admin_update.class.php',
     'Balance' => $baseDir . '/models/balance.class.php',
     'BalanceModel' => $baseDir . '/models/balance_model.class.php',
-
     'BalanceTypeException' => $baseDir . '/exceptions/balance_type_exception.class.php',
-
     'ComposerAutoloaderInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit2aa62ca7900cf9d7c7258cee3d36ecdf' => $vendorDir . '/composer/autoload_static.php',
@@ -35,16 +33,23 @@ return array(
     'DatabaseException' => $baseDir . '/exceptions/database_exception.class.php',
     'Dispatcher' => $baseDir . '/application/dispatcher.class.php',
     'EmailException' => $baseDir . '/exceptions/email_exception.class.php',
+    'Index' => $baseDir . '/views/user/dashboard/index.class.php',
     'IndexView' => $baseDir . '/views/index_view.class.php',
-
     'LessThanZeroException' => $baseDir . '/exceptions/less_than_zero_exception.class.php',
-
+    'Login' => $baseDir . '/views/user/login/login.class.php',
+    'Logout' => $baseDir . '/views/user/logout/logout.class.php',
+    'Transaction' => $baseDir . '/models/transaction.class.php',
     'UserController' => $baseDir . '/controllers/user_controller.class.php',
     'UserDashboardView' => $baseDir . '/views/user/dashboard/user_dashboard.class.php',
+    'UserError' => $baseDir . '/views/user/error/error.class.php',
     'UserIndexView' => $baseDir . '/views/user/user_index_view.class.php',
     'UserLoginVerifyView' => $baseDir . '/views/user/login/user_login_verify.class.php',
     'UserLoginView' => $baseDir . '/views/user/login/user_login.class.php',
     'UserModel' => $baseDir . '/models/user_model.class.php',
+    'UserRegister' => $baseDir . '/views/user/register/user_register.class.php',
+    'UserRegisterVerify' => $baseDir . '/views/user/register/user_register_verify.class.php',
+    'UserSearch' => $baseDir . '/views/user/search/user_search.class.php',
+    'Verify' => $baseDir . '/views/user/login/verify.class.php',
     'WelcomeController' => $baseDir . '/controllers/welcome_controller.class.php',
     'WelcomeIndex' => $baseDir . '/views/welcome/welcome_index.class.php',
 );

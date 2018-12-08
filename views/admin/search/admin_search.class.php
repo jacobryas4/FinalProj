@@ -1,11 +1,4 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of admin_search
  *
@@ -69,6 +62,7 @@ class AdminSearch extends AdminIndexView {
         </div>
 </div>
         <a href="<?= BASE_URL ?>/admin/index">Back to dashboard</a>
+        <script src="<?= BASE_URL ?>/www/js/autosuggest.js" type="text/javascript"></script>
         <?php
         // display footer
         parent::displayFooter();
